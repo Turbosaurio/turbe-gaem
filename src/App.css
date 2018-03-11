@@ -1,0 +1,22 @@
+body{
+  background-color: rgb(50,50,50);
+}
+
+.floor{
+  position: relative;
+}
+.floor > .tile{
+  width: 30px;
+  height: 60px;
+  position: absolute;
+  background-color: rgb(60,100,25);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-weight: 700;
+  font-size: .7rem;
+  border: 1px solid white;
+  box-sizing: border-box;
+}
+
