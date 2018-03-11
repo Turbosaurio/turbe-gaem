@@ -1,18 +1,26 @@
 import React, {Component} from 'react';
-
 export default class Tile extends Component	{
 	constructor(){
 		super();
 		this.state ={
-			texture: 1
+			backgroundPosition: ""
 		};
 	}
 	_positionTile(y,x){
-		let 	top = y * 30,
-				left = x * 30;
+		let 	top = y * 150,
+				left = x * 150;
+
+		let {img_path, img_top, img_left} = this.props.tileTexture;
 		return{
 			top: top,
-			left: left + 600
+			left: left + 800,
+			background:{
+				position:{
+					top: img_top,
+					left: img_left
+				},
+				image: "url("+img_path+")"
+			}
 		}
 	}
 	render(){
@@ -21,7 +29,7 @@ export default class Tile extends Component	{
 			<div
 					className="tile"
 					id={tileName}
-					style={this._positionTile(posY, posX)}
+					style={ this._positionTile(posY, posX) }
 			>{this.props.content}</div>
 		);
 	}

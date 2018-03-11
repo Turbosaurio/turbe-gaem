@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {rotateArr, rhombus} from '../arrays/arrays';
 import {floorOne} from '../levels/levels';
 import Tile from './tile';
+import {tileTexture} from './tile-textures';
 
 export default class Floor extends Component{
 	render(){
@@ -14,10 +15,10 @@ export default class Floor extends Component{
 			for(let k = 0; k < rotated_floor[i].length; k++){
 				let 	y = rotated_floor[i][k][0],
 						x = rotated_floor[i][k][1];
-				console.log(position[counter]);
 				tiles.push(
 					<Tile
 						key={counter}
+						tileTexture={tileTexture(4)}
 						tileName={`${1}_${y}_${x}`}
 						posY={i}
 						posX={position[counter]}
