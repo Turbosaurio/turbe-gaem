@@ -7,17 +7,11 @@ export let tileTexture = (num) =>{
 				y = 300; //////////sprite height
 	
 	let	a = num % columns,
-			path = "/textures/tiles" + Math.floor((num-1)/perPage) + ".png";
+			path = "url(/textures/tiles" + Math.floor((num-1)/perPage) + ".png)",
+			bg_pos_x = a * x * -1,
+			bg_pos_y = Math.floor( (num-1) / columns ) % rows * y * -1;
 
-	let	bg_pos_x = a * x * -1,
-			bg_pos_y = Math.floor( (num-1) / columns ) % rows * y * -1,
-			position = {
-				img_path: path,
-				img_top: bg_pos_y,
-				img_left: bg_pos_x
-			} 
-	//console.log(position);
-	return {position};
+	return {path, coord: bg_pos_x+"px "+bg_pos_y+"px"};
 }
 
 
