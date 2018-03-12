@@ -5,7 +5,7 @@ import Tile from './tile';
 
 export default class Floor extends Component{
 	render(){
-		const floorNum = floorTwo;
+		const floorNum = floorOne;
 		let tiles = [];
 		let counter = 0;
 		let 	rotated_floor = rotateArr(floorNum),
