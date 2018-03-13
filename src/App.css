@@ -4,9 +4,38 @@ body{
 
 .floor{
   position: relative;
+  left: 1421px;
 }
 .floor > .tile{
   position: absolute;
   width: 150px;
   height: 300px;
+  overflow: hidden;
 }
+
+.ui-buttons-container{
+	position: fixed;
+	top: 15px;
+	left: 15px;
+}
+
+.ui-buttons-container >button{
+	border: none;
+	width: 50px;
+	height: 50px;
+	background-image: url('/ui-images/rotate-arrow.svg');
+	background-size: 50%;
+	background-position: center center;
+	background-repeat: no-repeat;
+	color: transparent;
+	overflow: hidden;
+}
+.ui-buttons-container >button:hover{
+	background-color: rgba(75,75,200);
+}
+.ui-buttons-container >button:nth-of-type(2){
+	transform: rotateY(180deg);
+}
+.ui-buttons-container button + button{
+	margin-left: 15px;
+	}

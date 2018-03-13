@@ -3,28 +3,28 @@ import {tileTexture} from './tile-textures';
 
 
 export default class Tile extends Component	{
-	constructor(){
-		super();
-		this.state ={
-			backgroundPosition: ""
-		};
-	}
-	styleTile(positionY, positionX, textureNumber){
+	_styleTile(positionY, positionX, textureNumber){
 		let 	top = positionY * 35,
 				left = positionX * 75;
 		return{
 			top: top,
-			left: left + 800,
+			left: left,
 			backgroundImage: tileTexture(textureNumber).path,
 			backgroundPosition: tileTexture(textureNumber).coord
 		}
 	}
+	constructor(props){
+		super(props);
+		let {positionY, positionX, textureNumber} = this.props;
+		this.state ={
+			tileStyle: this._styleTile(positionY, positionX, textureNumber)
+		}
+	}
 	render(){
-		let {positionY, positionX, textureNumber}  = this.props;
 		return(
 			<div
 					className="tile"
-					style={ this.styleTile(positionY, positionX, textureNumber) }
+					style={this.state.tileStyle}
 			/>
 		);
 	}
