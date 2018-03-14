@@ -1,11 +1,10 @@
 import React, {Component} from 'react';
 import {rotateArr, rhombus} from '../arrays/arrays';
-import {floorOne, floorTwo} from '../levels/levels';
 import Tile from './tile';
 
 export default class Floor extends Component{
 	render(){
-		const floorNum = floorOne;
+		const floorNum = this.props.floorNumber;
 		let tiles = [];
 		let counter = 0;
 		let 	rotated_floor = rotateArr(floorNum),

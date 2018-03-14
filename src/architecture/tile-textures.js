@@ -2,7 +2,6 @@ export let tileTexture = (num) =>{
 	const	columns = 4,
 				rows = 5,
 				perPage = 20,
-				max = 880, ///////////total textures
 				x = 150, ////////////sprite width
 				y = 300; //////////sprite height
 	

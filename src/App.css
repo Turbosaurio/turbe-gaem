@@ -11,6 +11,10 @@ body{
   width: 150px;
   height: 300px;
   overflow: hidden;
+  color: red;
+  font-size: 3rem;
+  padding-top: 25px;
+  box-sizing: border-box;
 }
 
 .ui-buttons-container{
@@ -38,4 +42,16 @@ body{
 }
 .ui-buttons-container button + button{
 	margin-left: 15px;
+	}
+
+	.tile-button{
+		position: absolute;
+		width: 30px;
+		top: 0;
+	}
+	.tile-button.l{
+		left: 0;
+	}
+	.tile-button.r{
+		left: 25px;
 	}
