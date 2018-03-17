@@ -23,6 +23,16 @@ body{
 	left: 15px;
 }
 
+.ui-buttons-container >div{
+	background-color: white;
+	display: inline-block;
+	position: absolute;
+	padding: 25px;
+	top: 50px;
+	left: 0;
+	text-align: center;
+	width: 115px;
+}
 .ui-buttons-container >button{
 	border: none;
 	width: 50px;

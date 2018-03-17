@@ -33,31 +33,14 @@ export default class Tile extends Component	{
 			}
 		
 	}
-	_rotateTile(dir, val){
-		let currentTile = this.state.tileNumber;
-		switch(dir){
-			case "L":
-				this.setState({tileNumber: currentTile + 4});
-				break;
-			case "R":
-				this.setState({tileNumber: currentTile - 4});
-				break;
-		}
-	}
+
 	render(){
 		return(
 			<div
-					className="tile"
-					style={this.state.tileStyle}
-			>{this.state.tileNumber}
-				<button
-					className="tile-button l"
-					onClick={()=>{this._rotateTile("L",5); }}
-					>L</button>
-				<button
-					className="tile-button r"
-					onClick={()=>{this._rotateTile("R",5); }}
-					>R</button>
+				className="tile"
+				style={this.state.tileStyle}
+			>
+			{this.state.tileNumber}
 			</div>
 		);
 	}

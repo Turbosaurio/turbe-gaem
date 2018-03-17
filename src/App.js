@@ -4,27 +4,39 @@ import './App.css';
 import Floor from './architecture/floor';
 import {floorOne,floorTwo} from './levels/levels';
 import {UICamera} from './ui/ui-camera';
+import {flipTileWall} from './ui/camera-functions';
 
 class App extends Component{
-	_changeState(keyValue, fun){
-		let objeto = fun(this.state, keyValue);
-		this.setState({objeto});
-	}
 	constructor(){
 		super();
-		this.changeState = this._changeState.bind(this);
 		this.state = {
 			cameraPosition: "ori",
-			initialFloor: floorOne
+			initialFloor: floorOne,
+			cameraFloor: this._cameraFloor(floorOne, "ori"),
 		}
+		this.changeState = this.changeState.bind(this);
+	}
+	_cameraFloor(level, cam){
+		let arr = level;
+		for(let i = 0; i < level.length; i++){
+			for(let k = 0; k < level[i].length; k++){
+				arr[i][k] += flipTileWall(cam, level[i][k]);
+			}
+		}
+		return arr;
+	}
+	changeState(keyValue, fun){
+		let obj = fun(this.state, keyValue);
+		this.setState({obj});
 	}
   render() {
-	const {initialFloor} = this.state;
+	const {cameraFloor} = this.state;
 	return (
 		<div>
-			<Floor floorNumber={initialFloor}/>
+			<Floor floorNumber={cameraFloor}/>
 			<UICamera
-				buttonFunctions={this._changeState}
+				cameraPosition={this.state.cameraPosition}
+				changeState={this.changeState}
 			/>
 		</div>
     );
