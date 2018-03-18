@@ -23,6 +23,12 @@ body{
 	left: 15px;
 }
 
+#floor_1{
+	top: 225px;
+}
+#floor_2{
+	
+}
 .ui-buttons-container >div{
 	background-color: white;
 	display: inline-block;
@@ -64,4 +70,11 @@ body{
 	}
 	.tile-button.r{
 		left: 25px;
+	}
+
+	.button-test{
+		position: fixed;
+		top: 0;
+		width: 50px;
+		left: calc(50% - 25px);
 	}

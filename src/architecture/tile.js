@@ -40,7 +40,7 @@ export default class Tile extends Component	{
 				className="tile"
 				style={this.state.tileStyle}
 			>
-			{this.state.tileNumber}
+			
 			</div>
 		);
 	}

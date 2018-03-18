@@ -1,4 +1,4 @@
-export let flipTile = (cam,value) =>{
+let flipTile = (cam,value) =>{
 	let p=0;
 	switch(cam){
 		case "rot":
@@ -30,8 +30,16 @@ let addEmptyArr = (tot) =>{
 	}
 	return e;
 }
-
-export let flipLevel = (arr, cam) =>{
+let cameraFloor = (level, cam) =>{
+	let arr = level;
+	for(let i = 0; i < level.length; i++){
+		for(let k = 0; k < level[i].length; k++){
+			arr[i][k] += flipTile(cam, level[i][k]);
+		}
+	}
+	return arr;
+}
+let flipLevel = (arr, cam) =>{
 	let a = [];
 	for(let h = 0, j = arr.length-1; h < arr.length; h++, j--){
 		a[h] = addEmptyArr(arr);
@@ -56,4 +64,7 @@ export let flipLevel = (arr, cam) =>{
 	return a;
 }
 
+export let rotateCamera = (arr, cam) =>{
+	return cameraFloor(flipLevel(arr, cam), cam);
+}
 

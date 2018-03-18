@@ -1,5 +1,5 @@
 export let tileTexture = (num) =>{
-	const	columns = 4,
+	const columns = 4,
 				rows = 5,
 				perPage = 20,
 				x = 150, ////////////sprite width

@@ -4,28 +4,26 @@ import Tile from './tile';
 
 export default class Floor extends Component{
 	render(){
-		const floorNum = this.props.floorNumber;
-		let tiles = [];
-		let counter = 0;
-		let 	rotated_floor = rotateArr(floorNum),
-				rhombus_floor = rhombus(floorNum.length);
-		//console.log(rotated_floor);
-		for(let i = 0; i < rotated_floor.length; i++){
-			for(let k = 0; k < rotated_floor[i].length; k++){
-				let 	y = rotated_floor[i][k][0],
-						x = rotated_floor[i][k][1];
+		let 	tiles = [], counter = 0,
+				floor = this.props.floorLevel,
+				rotArr = rotateArr(floor),
+				rohmArr = rhombus(floor.length);
+		for(let i = 0; i < rotArr.length; i++){
+			for(let k = 0; k < rotArr[i].length; k++){
+				let 	y = rotArr[i][k][0],
+						x = rotArr[i][k][1];
 				let tileProperties = {
 					key: counter,
 					positionY: i,
-					positionX: rhombus_floor[counter],
-					textureNumber: floorNum[y][x]
+					positionX: rohmArr[counter],
+					textureNumber: floor[y][x]
 				}
 				tiles.push(<Tile {...tileProperties}/>);
 				counter++;
 			}
 		}
 		return(
-			<div className="floor">{tiles}</div>
+			<div className="floor" id={`floor_${this.props.floor}`}>{tiles}</div>
 		);
 	}
 }

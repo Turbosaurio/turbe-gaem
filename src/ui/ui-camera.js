@@ -24,7 +24,7 @@ export class UICamera extends Component{
 			default: break;
 		}
 		this.props.changeState(to_cam, (state, to_cam) =>{
-			let obj = state.cameraPosition = to_cam;
+			let obj = state.ui.cameraPosition = to_cam;
 			return obj;
 		});
 	}
