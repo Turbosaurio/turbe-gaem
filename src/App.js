@@ -4,7 +4,7 @@ import './App.css';
 import Floor from './architecture/floor';
 import {floorOne,floorTwo} from './levels/levels';
 import {UICamera} from './ui/ui-camera';
-import {flipTileWall} from './ui/camera-functions';
+import {flipTile, flipLevel} from './ui/camera-functions';
 
 class App extends Component{
 	constructor(){
@@ -12,7 +12,7 @@ class App extends Component{
 		this.state = {
 			cameraPosition: "ori",
 			initialFloor: floorOne,
-			cameraFloor: this._cameraFloor(floorOne, "ori"),
+			cameraFloor: this._cameraFloor(flipLevel(floorOne, "inv"), "inv"),
 		}
 		this.changeState = this.changeState.bind(this);
 	}
@@ -20,7 +20,7 @@ class App extends Component{
 		let arr = level;
 		for(let i = 0; i < level.length; i++){
 			for(let k = 0; k < level[i].length; k++){
-				arr[i][k] += flipTileWall(cam, level[i][k]);
+				arr[i][k] += flipTile(cam, level[i][k]);
 			}
 		}
 		return arr;
