@@ -3,12 +3,12 @@ import './App.css';
 
 import Floor from './architecture/floor';
 
-import {floorOne,floorTwo} from './levels/levels';
-// import {rotateArr, rhombus} from './arrays/arrays';
+import {floorTwo} from './levels/levels';
+import {isometricSkew, isometricX} from './arrays/arrays';
 
 
 import {UICamera} from './ui/ui-camera';
-import {flipTile, flipLevel} from './ui/camera-functions';
+import {rotateCamera} from './ui/camera-functions';
 
 class App extends Component{
 	constructor(){
@@ -17,7 +17,9 @@ class App extends Component{
 			floors:{
 				one:{
 					floor: 1,
-					floorLevel: floorOne,
+					floorLevel: floorTwo,
+					floorRot: isometricSkew(floorTwo),
+					floorRhom: isometricX(floorTwo),
 				},
 				two:{
 					floor: 2,
@@ -36,18 +38,44 @@ class App extends Component{
 		let obj = fun(this.state, keyValue);
 		this.setState({obj});
 	}
+	_changeFloor(camera){
+		let newLevel = rotateCamera(floorTwo, camera);
+		this.setState({
+			ui: 'rev',
+			floors:{
+				...this.state.floors,
+				one:{
+					floor: 2,
+					floorLevel: newLevel,
+					floorRot: isometricSkew(newLevel),
+					floorRhom: isometricX(newLevel)
+				}
+			}
+		})
+	}
   render(){
-		let {initialFloor} = this.state;
 		return (
 			<div>
 				<Floor {...this.state.floors.one}/>
-				<Floor {...this.state.floors.two}/>
+				
 				<UICamera
 					cameraPosition={this.state.ui.cameraPosition}
 					changeState={this.changeState}
 				/>
-				<button
-					className="button-test" />
+				<div id="button_test">
+					<button
+						onClick={()=>{this._changeFloor('inv')}}
+					>inv</button>
+					<button
+						onClick={()=>{this._changeFloor('ori')}}
+					>ori</button>
+					<button
+						onClick={()=>{this._changeFloor('rot')}}
+					>rot</button>
+					<button
+						onClick={()=>{this._changeFloor('rev')}}
+					>rev</button>
+				</div>
 			</div>
     );
   }

@@ -24,7 +24,7 @@ body{
 }
 
 #floor_1{
-	top: 225px;
+	/*top: 225px;*/
 }
 #floor_2{
 	
@@ -72,9 +72,9 @@ body{
 		left: 25px;
 	}
 
-	.button-test{
+	#button_test{
 		position: fixed;
 		top: 0;
-		width: 50px;
-		left: calc(50% - 25px);
+		width: 100px;
+		left: calc(50% - 50px);
 	}

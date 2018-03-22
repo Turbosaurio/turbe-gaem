@@ -1,9 +1,6 @@
 import React, {Component} from "react";
 
 export class UICamera extends Component{
-	constructor(){
-		super();
-	}
 	_flipCameraLeft(camera,direction){
 		let to_cam;
 		switch(direction){

@@ -1,4 +1,4 @@
-export let rotateArr = (arr) =>{
+export let isometricSkew = (arr) =>{
 	const limit = arr.length * 2 - 1;
 	let	iso=[],
 			a,
@@ -22,18 +22,18 @@ export let rotateArr = (arr) =>{
 	return iso;
 }
 
-export let rhombus = (e) =>{
-	e++;
-	let arr = [];
-	for(let i = 1; i<e*2; i++){
+export let isometricX = (arr) =>{
+	let a = [],
+			k = arr.length + 1;
+	for(let i = 1; i < k*2; i++){
 		let qui = 0,
-				aux =  i>e ? e-i%e : i;
+				aux =  i > k ? k-i%k : i;
 		for(let h = 1; h < aux; h++){
 			aux / 2 !== Math.ceil(aux/2) ? qui++ : qui = h%aux;
-			arr.push( [qui + h - aux]);
+			a.push( [qui + h - aux]);
 		};
 	};
-	return arr;
+	return a;
 }
 
 
