@@ -1,19 +1,19 @@
 let flipTile = (cam,value) =>{
-	let p=0;
+	let p = 0;
 	switch(cam){
 		case "rot":
-			if(value%4 === 0) p=-3;
+			if(value % 4 === 0) p = -3;
 			else p = 1;
 			break;
 		case "rev":
-			if(value%4 === 1) p = +3;
+			if(value % 4 === 1) p = +3;
 			else p = -1;
 			break;
 		case "inv":
-			if(value%4 === 0) p = -3;
-			if(value%4 === 3) p = -2;
-			if(value%4 === 2) p = +2;
-			if(value%4 === 1) p = +2;
+			if(value % 4 === 0) p = -2;
+			if(value % 4 === 3) p = -2;
+			if(value % 4 === 2) p = +2;
+			if(value % 4 === 1) p = +2;
 			break;
 		case "ori":
 			p = 0;
@@ -30,11 +30,26 @@ let addEmptyArr = (tot) =>{
 	}
 	return e;
 }
+
+let onlyRotable = (value) =>{
+	let rotableTiles = [1,81,161,241,321];
+	for(let i of rotableTiles){
+		if( i === value){
+			return false;
+		}else{
+			return true;
+		}
+	}
+
+}
+
 let cameraFloor = (level, cam) =>{
 	let arr = level;
 	for(let i = 0; i < level.length; i++){
 		for(let k = 0; k < level[i].length; k++){
-			arr[i][k] += flipTile(cam, level[i][k]);
+			if(onlyRotable(arr[i][k])){
+				arr[i][k] += flipTile(cam, level[i][k]);
+			}
 		}
 	}
 	return arr;
@@ -69,10 +84,10 @@ let changeDirection = (cam, direction) =>{
 		case "left":
 			switch (cam){
 				case 'ori': new_cam = "rot"; break;
-				case 'rot': new_cam = "inv"; break;
-				case 'inv': new_cam = "rev"; break;
-				case 'rev': new_cam = "ori"; break;
-				default: break
+				case 'rot': new_cam = "rev"; break;
+				case 'rev': new_cam = "inv"; break;
+				case 'inv': new_cam = "ori"; break;
+				default: break;
 			}
 			break;
 		case "right":
@@ -81,7 +96,7 @@ let changeDirection = (cam, direction) =>{
 				case 'rev': new_cam = "inv"; break;
 				case 'inv': new_cam = "rot"; break;
 				case 'rot': new_cam = "ori"; break;
-				default: break
+				default: break;
 			}
 			break;
 		default: break;
@@ -90,7 +105,7 @@ let changeDirection = (cam, direction) =>{
 }
 export let rotateCamera = (cam, arr, direction) =>{
 	let newDir = changeDirection(cam, direction);
-	let newArr = flipLevel(arr, newDir);
+	let newArr = flipLevel(cameraFloor(arr,newDir), newDir);
 	return {
 		cam: newDir,
 		arr: newArr

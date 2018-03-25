@@ -27,8 +27,8 @@ class App extends Component{
 		this.changeState = this.changeState.bind(this);
 	}
 	changeState(keyValue, fun){
-		let obj = fun(this.state, keyValue);
-		this.setState({obj});
+		let kek = fun(this.state, keyValue);
+		this.setState({kek});
 	}
   render(){
 		return (
