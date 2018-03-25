@@ -10,7 +10,7 @@ let flipTile = (cam,value) =>{
 			else p = -1;
 			break;
 		case "inv":
-			if(value%4 === 0) p = -2;
+			if(value%4 === 0) p = -3;
 			if(value%4 === 3) p = -2;
 			if(value%4 === 2) p = +2;
 			if(value%4 === 1) p = +2;
@@ -63,8 +63,37 @@ let flipLevel = (arr, cam) =>{
 	}
 	return a;
 }
-
-export let rotateCamera = (arr, cam) =>{
-	return cameraFloor(flipLevel(arr, cam), cam);
+let changeDirection = (cam, direction) =>{
+	let new_cam;
+	switch(direction){
+		case "left":
+			switch (cam){
+				case 'ori': new_cam = "rot"; break;
+				case 'rot': new_cam = "inv"; break;
+				case 'inv': new_cam = "rev"; break;
+				case 'rev': new_cam = "ori"; break;
+				default: break
+			}
+			break;
+		case "right":
+			switch (cam){
+				case 'ori': new_cam = "rev"; break;
+				case 'rev': new_cam = "inv"; break;
+				case 'inv': new_cam = "rot"; break;
+				case 'rot': new_cam = "ori"; break;
+				default: break
+			}
+			break;
+		default: break;
+	}
+	return new_cam;
+}
+export let rotateCamera = (cam, arr, direction) =>{
+	let newDir = changeDirection(cam, direction);
+	let newArr = flipLevel(arr, newDir);
+	return {
+		cam: newDir,
+		arr: newArr
+	}
 }
 

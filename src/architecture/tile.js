@@ -23,7 +23,7 @@ export default class Tile extends Component	{
 			<div
 				className="tile"
 				style={this._styleTile(positionY, positionX, textureNumber)}
-			>
+			>{textureNumber}
 			</div>
 		);
 	}

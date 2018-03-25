@@ -1,44 +1,45 @@
 import React, {Component} from "react";
+import {rotateCamera} from './camera-functions';
+import {isometricSkew, isometricX} from '../arrays/arrays';
 
 export class UICamera extends Component{
-	_flipCameraLeft(camera,direction){
-		let to_cam;
-		switch(direction){
-			case "right":
-				switch(camera){
-					case 'ori': to_cam="rot"; break;
-					case 'rot': to_cam="inv"; break;
-					case 'inv': to_cam="rev"; break;
-					case 'rev': to_cam="ori"; break;		
-				}break;
-			case "left":
-				switch(camera){
-					case 'ori': to_cam='rev'; break;
-					case 'rev': to_cam='inv'; break;
-					case 'inv': to_cam='rot'; break;
-					case 'rot': to_cam='ori'; break;
-				}break;
-			default: break;
-		}
-		this.props.changeState(to_cam, (state, to_cam) =>{
-			let obj = state.ui.cameraPosition = to_cam;
+	_UIRotateCamera(value, camera, direction){
+		let {changeState, level, cameraPosition} = this.props;
+		let {cam, arr} = rotateCamera(camera, value, direction);
+		changeState(value, (state, value) =>{
+			let obj = state.ui.cameraPosition = cam;
+			return obj;
+		})
+		changeState(value, (state, value) => {
+			let obj = state.floors.one.floorLevel = arr;
+			return obj;
+		});
+		changeState(value, (state, value) => {
+			let obj = state.floors.one.floorRot = isometricSkew(arr);
+			return obj;
+		});
+		changeState(value, (state, value) => {
+			let obj = state.floors.one.floorRhom = isometricX(arr);
 			return obj;
 		});
 	}
-	_buttonTurn(direction){
-		let to_cam = this._flipCameraLeft(this.props.cameraPosition, direction);
-	}
+
 	render(){
+		let {level, cameraPosition} = this.props;
 		return(
 			<div className="ui-buttons-container">
 				<div>{this.props.cameraPosition}</div>
-				<button onClick={ () => {
-					this._buttonTurn('left');
-				}}>Left</button>
-				<button onClick={ () => {
-					this._buttonTurn('right');
-				}}>Right</button>
+				<button onClick={() =>{
+					this._UIRotateCamera(level.floorLevel, cameraPosition, "left")
+				}
+				}>Left</button>
+				<button onClick={() =>{
+					this._UIRotateCamera(level.floorLevel, cameraPosition, "right")
+				}
+				}>Right</button>
 			</div>
 		);
 	}
 }
+
+	
