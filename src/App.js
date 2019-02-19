@@ -1,15 +1,18 @@
-import React, { Component } from 'react';
-import './App.css';
+import React, { Component } from 'react'
+import './App.css'
 
-import Floor from './architecture/floor';
+import Floor from './architecture/floor'
 
-import {floorTwo} from './levels/levels';
-import {isometricSkew, isometricX} from './arrays/arrays';
-import {UICamera} from './ui/ui-camera';
+import {connect} from 'react-redux'
+import {handleLevelsData} from './redux/actions/shared'
+
+import {floorTwo} from './levels/levels'
+import {isometricSkew, isometricX} from './arrays/arrays'
+import {UICamera} from './ui/ui-camera'
 
 class App extends Component{
 	constructor(){
-		super();
+		super()
 		this.state = {
 			floors:{
 				one:{
@@ -24,11 +27,15 @@ class App extends Component{
 				initialFloor: "one",
 			},
 		}
-		this.changeState = this.changeState.bind(this);
+		this.changeState = this.changeState.bind(this)
+	}
+
+	componentDidMount(){
+		this.props.dispatch(handleLevelsData())
 	}
 	changeState(keyValue, fun){
-		let kek = fun(this.state, keyValue);
-		this.setState({kek});
+		let kek = fun(this.state, keyValue)
+		this.setState({kek})
 	}
   render(){
 		return (
@@ -40,8 +47,12 @@ class App extends Component{
 					changeState={this.changeState}
 				/>
 			</div>
-    );
+    )
   }
 }
 
-export default App;
+const mapStateToProps = ({levels, finish}) => {
+	return { levels, finish}
+}
+
+export default connect(mapStateToProps)(App)

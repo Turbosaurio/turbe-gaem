@@ -20,11 +20,5 @@ const 	floor_0 = [],
 		floor_1[7]=[1,35,23,23,23,23,23,34,1];
 		floor_1[8]=[1,1,1,1,1,1,1,1,1];
 
-		
-
-
-
-
-
 export const floorOne = floor_0;
 export const floorTwo = floor_1;
