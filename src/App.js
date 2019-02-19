@@ -1,7 +1,7 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import './App.css'
 
-import Floor from './architecture/floor'
+import Floor from './architecture/Floor2'
 
 import {connect} from 'react-redux'
 import {handleLevelsData} from './redux/actions/shared'
@@ -38,14 +38,32 @@ class App extends Component{
 		this.setState({kek})
 	}
   render(){
+  	const {levels, finish} = this.props
+  	const {level1, level2} = levels
 		return (
 			<div>
-				<Floor {...this.state.floors.one}/>
-				<UICamera
-					level={this.state.floors.one}
-					cameraPosition={this.state.ui.cameraPosition}
-					changeState={this.changeState}
-				/>
+				{
+					finish === 'done' &&
+					<Fragment>
+						<Floor 
+							floor={1}
+							floorLevel={level1}
+							floorRot={isometricSkew(level1)}
+							floorRhom={isometricX(level1)}
+						/>
+						<Floor 
+							floor={2}
+							floorLevel={level2}
+							floorRot={isometricSkew(level2)}
+							floorRhom={isometricX(level2)}
+						/>
+						<UICamera
+							level={2}
+							cameraPosition={'ori'}
+							
+						/>
+					</Fragment>
+				}
 			</div>
     )
   }
