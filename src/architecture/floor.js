@@ -1,32 +1,26 @@
-import React, {Component} from 'react';
-import Tile from './tile';
+import React from 'react';
+import Tile from './Tile';
 
-
-
-export default class Floor extends Component{
-	render(){
-		// let 	tiles = [], counter = 0,
-		// 		floor = this.props.floorLevel,
-		// 		rotArr = rotateArr(floor),
-		// 		rohmArr = rhombus(floor.length);
-		let counter = 0, tiles = [];
-		let {floorLevel, floorRot, floorRhom} = this.props;
-		for(let i = 0; i < floorRot.length; i++){
-			for(let k = 0; k < floorRot[i].length; k++){
-				let 	y = floorRot[i][k][0],
-						x = floorRot[i][k][1];
-				let tileProperties = {
+export default function Floor({level}){
+		let counter = 0, tilesGroup = []
+		const {tiles} = level
+		const max = tiles.length
+		for(let i = 0; i < max; i++){
+			for(let k = 0; k < max; k++){
+				const tilesProps = {
 					key: counter,
-					positionY: i,
-					positionX: floorRhom[counter],
-					textureNumber: floorLevel[y][x]
+					texture: tiles[i][k],
+					posY: counter % max + i,
+					posX: k - i
 				}
-				tiles.push(<Tile {...tileProperties}/>);
-				counter++;
+				tilesGroup.push(
+					<Tile {...tilesProps}/>
+				)
+				counter++		
 			}
 		}
+
 		return(
-			<div className="floor" id={`floor_${this.props.floor}`}>{tiles}</div>
-		);
-	}
+			<div className="floor" id={level.name}>{tilesGroup}</div>
+		)
 }

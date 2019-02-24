@@ -103,6 +103,7 @@ let changeDirection = (cam, direction) =>{
 	}
 	return new_cam;
 }
+
 export let rotateCamera = (cam, arr, direction) =>{
 	let newDir = changeDirection(cam, direction);
 	let newArr = flipLevel(cameraFloor(arr,newDir), newDir);

@@ -1,5 +1,6 @@
 body{
   background-color: rgb(50,50,50);
+  font-family: Verdana;
 }
 
 .floor{
@@ -19,7 +20,7 @@ body{
 
 .ui-buttons-container{
 	position: fixed;
-	top: 15px;
+	bottom: 50px;
 	left: 15px;
 }
 
@@ -33,11 +34,11 @@ body{
 	background-color: white;
 	display: inline-block;
 	position: absolute;
-	padding: 25px;
+	padding: 10px;
 	top: 50px;
 	left: 0;
 	text-align: center;
-	width: 115px;
+	width: 80px;
 }
 .ui-buttons-container >button{
 	border: none;
@@ -57,24 +58,23 @@ body{
 	transform: rotateY(180deg);
 }
 .ui-buttons-container button + button{
-	margin-left: 15px;
-	}
+}
 
-	.tile-button{
-		position: absolute;
-		width: 30px;
-		top: 0;
-	}
-	.tile-button.l{
-		left: 0;
-	}
-	.tile-button.r{
-		left: 25px;
-	}
+.tile-button{
+	position: absolute;
+	width: 30px;
+	top: 0;
+}
+.tile-button.l{
+	left: 0;
+}
+.tile-button.r{
+	left: 25px;
+}
 
-	#button_test{
-		position: fixed;
-		top: 0;
-		width: 100px;
-		left: calc(50% - 50px);
-	}
+#button_test{
+	position: fixed;
+	top: 0;
+	width: 100px;
+	left: calc(50% - 50px);
+}

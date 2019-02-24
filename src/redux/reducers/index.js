@@ -1,7 +1,8 @@
 import {combineReducers} from 'redux'
 import levels from './levels'
+import config from './config'
 import finish from './finish'
 
 export default combineReducers({
-	levels, finish
+	levels, config, finish
 })

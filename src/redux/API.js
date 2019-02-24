@@ -1,10 +1,12 @@
 import {
 	_getLevels,
-} from './LEVELS.js'
+	_getConfig,
+} from './INITIAL_INFO'
 
 export const getLevelsData = _ =>{
 	return Promise.all ([
 		_getLevels(),
+		_getConfig(),
 	])
-	.then(([levels]) => ({ levels }))
+	.then(([levels, config]) => ({ levels, config }))
 }
