@@ -1,5 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import {onlyRotable} from '../functions/cameraFunctions'
 
 const tileTexture = num =>{
 	const columns = 4,
@@ -21,28 +22,27 @@ const tileTexture = num =>{
 const textureCamera = (cam, val) => {
 	switch(cam){
 		case 'rot':
-			return val % 4 === 0 ? -3 : +1
+			return val % 4 === 0 ? -3 : 1
 		case 'rev':
-			return val % 4 === 1 ? +3 : -1
+			return val % 4 === 1 ? 3 : -1
 		case 'inv':
-			return val % 4 === 0 || val % 4 === 3 ? -2 : +2
+			return val % 4 === 0 || val % 4 === 3 ? -2 : 2
 		case 'ori': return 0
 		default: return 0
 	}
 }
 
 const Tile = ({texture, posY, posX, camera}) => {
-	const uno = textureCamera(camera, texture)
-	const {path, coord} = tileTexture(texture)
+	const newTexture = onlyRotable(texture) ? texture + textureCamera(camera, texture) : texture
 	return(
 		<div
 			className='tile'
 			style={{
-				...tileTexture(texture),
+				...tileTexture(newTexture),
 				top: posY * 35,
 				left: posX * 75,
 			}}
-		>{`${texture}:${texture + uno}`}
+		>
 		</div>
 	)
 }

@@ -18,7 +18,8 @@ class App extends Component{
 				{
 					finish === 'done' && 
 						<Fragment>
-							<Floor level={level2} />
+							<Floor level={level1}/>
+							
 							<UICamera />
 						</Fragment>
 				}

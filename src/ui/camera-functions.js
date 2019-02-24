@@ -31,8 +31,8 @@ let addEmptyArr = (tot) =>{
 	return e;
 }
 
-let onlyRotable = (value) =>{
-	let rotableTiles = [1,81,161,241,321];
+const onlyRotable = (value) =>{
+	const rotableTiles = [1,81,161,241,321];
 	for(let i of rotableTiles){
 		if( i === value){
 			return false;
@@ -40,7 +40,6 @@ let onlyRotable = (value) =>{
 			return true;
 		}
 	}
-
 }
 
 let cameraFloor = (level, cam) =>{
@@ -54,7 +53,8 @@ let cameraFloor = (level, cam) =>{
 	}
 	return arr;
 }
-let flipLevel = (arr, cam) =>{
+
+export const flipLevel = (arr, cam) =>{
 	let a = [];
 	for(let h = 0, j = arr.length-1; h < arr.length; h++, j--){
 		a[h] = addEmptyArr(arr);
@@ -78,6 +78,7 @@ let flipLevel = (arr, cam) =>{
 	}
 	return a;
 }
+
 let changeDirection = (cam, direction) =>{
 	let new_cam;
 	switch(direction){
@@ -104,7 +105,7 @@ let changeDirection = (cam, direction) =>{
 	return new_cam;
 }
 
-export let rotateCamera = (cam, arr, direction) =>{
+export const rotateCamera = (cam, arr, direction) =>{
 	let newDir = changeDirection(cam, direction);
 	let newArr = flipLevel(cameraFloor(arr,newDir), newDir);
 	return {
