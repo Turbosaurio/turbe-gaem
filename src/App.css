@@ -78,3 +78,17 @@ body{
 	width: 100px;
 	left: calc(50% - 50px);
 }
+
+.player{
+	position: absolute;
+  width: 150px;
+  height: 300px;
+  overflow: hidden;
+  color: red;
+  font-size: 1rem;
+  padding-top: 25px;
+  box-sizing: border-box;
+	background-image: url('/player/player.png');
+	background-size: auto;
+	background-repeat: no-repeat;
+}

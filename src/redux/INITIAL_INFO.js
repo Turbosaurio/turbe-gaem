@@ -55,6 +55,7 @@ const levels = {
 const config = {
 	userName: 'none',
 	cameraPos: 'ori',
+	face: 0,
 }
 
 
