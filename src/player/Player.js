@@ -4,8 +4,8 @@ import {connect} from 'react-redux'
 import {setConfigKey} from '../redux/actions/config'
 
 class Player extends Component{
-
-	constructProp(num1, num2){
+	
+	buildStyle(num1, num2){
 		return {
 			backgroundPosition: `${num1* -150}px ${num2* -300}px`
 		}	
@@ -23,37 +23,40 @@ class Player extends Component{
 				x = 5
 				break
 			case 3:
+				x = 5
 				y = 2
 				break
 			case 4:
+				y = 3
 				x = 5
 				break
 			case 5:
-				y = 3
+				y = 1
+				x = 5
 				break
 			case 6:
-				x = 5
-				y = 1
+				y = 3
 				break
 			case 7:
-				x = 5
-				y = 3
+				y = 2
 				break
 			default: break
 		}
-		return this.constructProp(x, y)
+		return this.buildStyle(x, y)
 	}
 
+
+
+
+
 	render(){
-		const {config} = this.props
+		const {face} = this.props.config
+		const {rotate} = this.props
 		return(
 			<div
 				className="player"
-				style={this.getPosition(config.face)}
-			>
-			<button onClick={ _ => this.props._changePosition(config.face, +1)}/>
-			<button onClick={ _ => this.props._changePosition(config.face, -1)}/>
-			{config.face}
+				style={this.getPosition(face)}
+			>{face}
 			</div>
 		)
 	}
@@ -73,7 +76,7 @@ const mapDispatchToProps = dispatch => {
 				return temp
 			}
 			dispatch(setConfigKey({key: 'face', data: newData()}))
-		}
+		},
 	}
 }
 
