@@ -5,13 +5,7 @@ import {setConfigKey} from '../redux/actions/config'
 
 class Player extends Component{
 	
-	buildStyle(num1, num2){
-		return {
-			backgroundPosition: `${num1* -150}px ${num2* -300}px`
-		}	
-	}
-
-	getPosition(num){
+	getFace(num){
 		let x = 0, y = 0
 		switch(num){
 			case 0:
@@ -42,7 +36,11 @@ class Player extends Component{
 				break
 			default: break
 		}
-		return this.buildStyle(x, y)
+		return {backgroundPosition: `${x* -150}px ${y* -300}px`}
+	}
+
+	getPos(y, x){
+		
 	}
 
 
@@ -50,12 +48,20 @@ class Player extends Component{
 
 
 	render(){
-		const {face} = this.props.config
+		const {face, x, y} = this.props.config
+		const {getFace, playerPosition} = this
 		const {rotate} = this.props
+
+		const playerStyles = {
+			...getFace(face),
+			left: `${x * 150}px`,
+			top:`${y * 300}px`,
+		}
+
 		return(
 			<div
 				className="player"
-				style={this.getPosition(face)}
+				style={playerStyles}
 			>{face}
 			</div>
 		)

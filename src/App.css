@@ -62,14 +62,16 @@ body{
 
 .tile-button{
 	position: absolute;
-	width: 30px;
-	top: 0;
+	display: block;
+	width: 98px;
+	height: 50PX;
+	border: none;
+	border-radius: 50%;
+	/*background-color: transparent;*/
 }
-.tile-button.l{
-	left: 0;
-}
-.tile-button.r{
-	left: 25px;
+
+.tile-button:hover{
+	background-color: rgba(25,25,25,.15);
 }
 
 #button_test{
@@ -81,13 +83,13 @@ body{
 
 .player{
 	position: absolute;
-  width: 150px;
-  height: 300px;
-  overflow: hidden;
-  color: red;
-  font-size: 1rem;
-  padding-top: 25px;
-  box-sizing: border-box;
+	width: 150px;
+	height: 300px;
+	overflow: hidden;
+	color: red;
+	font-size: 1rem;
+	padding-top: 25px;
+	box-sizing: border-box;
 	background-image: url('/player/player.png');
 	background-size: auto;
 	background-repeat: no-repeat;

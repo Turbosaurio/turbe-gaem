@@ -3,7 +3,6 @@ import './App.css'
 import {connect} from 'react-redux'
 import {handleLevelsData} from './redux/actions/shared'
 import Floor from './architecture/Floor'
-import Player from './player/Player'
 import UICamera from './ui/UICamera'
 
 
@@ -20,7 +19,6 @@ class App extends Component{
 					finish === 'done' && 
 						<Fragment>
 							<Floor level={level1}/>
-							<Player />
 							<UICamera />
 						</Fragment>
 				}

@@ -53,9 +53,12 @@ const levels = {
 
 
 const config = {
+	floor: 1,
 	userName: 'none',
 	cameraPos: 'ori',
 	face: 0,
+	x: 0,
+	y: 0,
 }
 
 

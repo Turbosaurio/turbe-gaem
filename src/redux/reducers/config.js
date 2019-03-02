@@ -1,6 +1,7 @@
 import {
 	GET_CONFIG,
 	SET_CONFIG_KEY,
+	SET_PLAYER_COORDS,
 } from '../actions/config'
 
 export default function levels ( state = {}, action){
@@ -13,6 +14,12 @@ export default function levels ( state = {}, action){
 			return{
 				...state,
 				[action.val.key] : action.val.data
+			}
+		case SET_PLAYER_COORDS:
+			return{
+				...state,
+				y: action.val.y,
+				x: action.val.x,
 			}
 		default: return state
 	}
