@@ -39,30 +39,22 @@ class Player extends Component{
 		return {backgroundPosition: `${x* -150}px ${y* -300}px`}
 	}
 
-	getPos(y, x){
-		
-	}
-
-
-
-
-
 	render(){
 		const {face, x, y} = this.props.config
-		const {getFace, playerPosition} = this
-		const {rotate} = this.props
-
 		const playerStyles = {
-			...getFace(face),
-			left: `${x * 150}px`,
-			top:`${y * 300}px`,
+			backgroundImage : 'url(player/player.png)',
+			...this.getFace(face),
+			top: `${(y + x) * 35}px`,
+			left: `${(x - y) * 75}px`
 		}
 
 		return(
 			<div
 				className="player"
 				style={playerStyles}
-			>{face}
+			>
+				<div>{`face ${face}`}</div>
+				<div>{`coords ${y},${x}`}</div>
 			</div>
 		)
 	}
@@ -74,7 +66,7 @@ const mapStateToProps =({config})=>{
 
 const mapDispatchToProps = dispatch => {
 	return {
-		_changePosition: (data, extra) => {
+		_changeFace: (data, extra) => {
 			const newData = _ => {
 				let temp = data + extra
 				if(temp > 7) temp = 0

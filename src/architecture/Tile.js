@@ -14,7 +14,7 @@ const tileTexture = num =>{
 			bg_pos_y = Math.floor( (num-1) / columns ) % rows * y * -1;
 
 	return {
-		backgroundImage: `url(/textures/tiles${Math.floor((num-1)/perPage)}.png)`, 
+		backgroundImage: `url(textures/tiles${Math.floor((num-1)/perPage)}.png)`, 
 		backgroundPosition: `${bg_pos_x}px ${bg_pos_y}px`
 	}
 }
@@ -32,15 +32,15 @@ const textureCamera = (cam, val) => {
 	}
 }
 
-const Tile = ({texture, posY, posX, camera}) => {
+const Tile = ({texture, top, left, camera}) => {
 	const newTexture = onlyRotable(texture) ? texture + textureCamera(camera, texture) : texture
 	return(
 		<div
 			className='tile'
 			style={{
 				...tileTexture(newTexture),
-				top: posY * 35,
-				left: posX * 75,
+				top: top * 35,
+				left: left * 75,
 			}}
 		>
 		</div>

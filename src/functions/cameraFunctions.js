@@ -1,12 +1,13 @@
 export const onlyRotable = value =>{
-	const rotableTiles = [1,81,161,241,321];
-	for(let i of rotableTiles){
-		if( i === value){
-			return false;
-		}else{
-			return true;
+	const rotableTiles = [1,81,181,241,321];
+	const rotable = _ => {
+		let res = true
+		for(let tile of rotableTiles){
+			if(tile === value) res = false
 		}
+		return res
 	}
+	return rotable()
 }
 
 const addEmptyArr = total =>{
