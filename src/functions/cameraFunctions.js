@@ -17,26 +17,36 @@ const addEmptyArr = total =>{
 }
 
 export const rotateLevel = (arr, cam) =>{
-	let a = [];
+	let a = []
 	for(let h = 0, j = arr.length-1; h < arr.length; h++, j--){
 		a[h] = addEmptyArr(arr);
 		for(let n = 0, m = arr.length-1; n < arr.length; n++, m--){
 			switch(cam){
 				case 'ori':
-					a[h][n] = arr[h][n];
-					break;
+					a[h][n] = arr[h][n]
+					break
 				case "rot":
-					a[h][n] = arr[m][h];
-					break;
+					a[h][n] = arr[m][h]
+					break
 				case "rev":
-					a[h][n] = arr[n][j];
-					break;
+					a[h][n] = arr[n][j]
+					break
 				case "inv":
-					a[h][n] = arr[j][m];
-					break;
-				default: break;
+					a[h][n] = arr[j][m]
+					break
+				default: break
 			}
 		}
 	}
-	return a;
+	return a
+}
+
+export const rotatePlayer = (y, x, cam, max) =>{
+	switch(cam){
+		case 'ori': return {y, x}
+		case "rot": return {y: x, x: max-y}
+		case "inv": return {y: max-y, x: max-x}
+		case "rev": return {y: max-x, x: y}
+		default: return {y,x}
+	}
 }

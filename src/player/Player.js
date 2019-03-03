@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 
 import {setConfigKey} from '../redux/actions/config'
+import {rotatePlayer} from '../functions/cameraFunctions'
 
 class Player extends Component{
 	
@@ -39,23 +40,22 @@ class Player extends Component{
 		return {backgroundPosition: `${x* -150}px ${y* -300}px`}
 	}
 
+
 	render(){
-		const {face, x, y} = this.props.config
+		const {cameraPos, face, x, y} = this.props.config
+		const newPos = rotatePlayer(y,x,cameraPos, 19)
 		const playerStyles = {
 			backgroundImage : 'url(player/player.png)',
 			...this.getFace(face),
-			top: `${(y + x) * 35}px`,
-			left: `${(x - y) * 75}px`
+			top: `${(newPos.y + newPos.x) * 35}px`,
+			left: `${(newPos.x - newPos.y) * 75}px`
 		}
 
 		return(
 			<div
 				className="player"
 				style={playerStyles}
-			>
-				<div>{`face ${face}`}</div>
-				<div>{`coords ${y},${x}`}</div>
-			</div>
+			/>
 		)
 	}
 }

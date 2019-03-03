@@ -33,18 +33,17 @@ body {
   left: 15px; }
   .ui-buttons-container > div {
     background-color: white;
-    display: inline-block;
-    position: absolute;
+    font-size: 12px;
     padding: 10px;
     top: 50px;
     left: 0;
-    text-align: center;
-    width: 80px; }
+    text-align: center; }
+  .ui-buttons-container button + button {
+    margin-left: 5px; }
   .ui-buttons-container > button {
     border: none;
     width: 50px;
     height: 50px;
-    background-image: url("/ui-images/rotate-arrow.svg");
     background-size: 50%;
     background-position: center center;
     background-repeat: no-repeat;
@@ -52,7 +51,7 @@ body {
     overflow: hidden; }
     .ui-buttons-container > button:hover {
       background-color: rgba(75, 75, 200, 0.3); }
-    .ui-buttons-container > button:nth-of-type(2) {
+    .ui-buttons-container > button:nth-of-type(1) {
       transform: rotateY(180deg); }
 
 #floor1 {
