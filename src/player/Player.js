@@ -6,6 +6,20 @@ import {rotatePlayer} from '../functions/cameraFunctions'
 
 class Player extends Component{
 	
+	cameraFace(cam, face){
+		switch(cam){
+			case 'ori':
+				return face
+			case 'rot':
+				return face + 2 > 7 ? (face + 2) % 7 - 1 : face + 2
+			case 'inv':
+				return face + 4 > 7 ? (face + 4) % 7 - 1 : face + 4
+			case 'rev':
+				return face + 6 > 7 ? (face + 6) % 7 - 1 : face + 6
+			default: return face
+		}
+	}
+
 	getFace(num){
 		let x = 0, y = 0
 		switch(num){
@@ -42,11 +56,12 @@ class Player extends Component{
 
 
 	render(){
-		const {cameraPos, face, x, y} = this.props.config
-		const newPos = rotatePlayer(y,x,cameraPos, 19)
+		const {cameraPos, face, playerPos, floorSize} = this.props.config
+		const {y, x} = playerPos
+		const newPos = rotatePlayer(y,x,cameraPos, floorSize)
 		const playerStyles = {
+			...this.getFace(this.cameraFace(cameraPos, face)),
 			backgroundImage : 'url(player/player.png)',
-			...this.getFace(face),
 			top: `${(newPos.y + newPos.x) * 35}px`,
 			left: `${(newPos.x - newPos.y) * 75}px`
 		}

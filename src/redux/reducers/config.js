@@ -18,8 +18,10 @@ export default function levels ( state = {}, action){
 		case SET_PLAYER_COORDS:
 			return{
 				...state,
-				y: action.val.y,
-				x: action.val.x,
+				playerPos:{
+					y: action.val.y,
+					x: action.val.x,
+				}
 			}
 		default: return state
 	}

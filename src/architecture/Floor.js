@@ -7,20 +7,23 @@ import TileButton from './TileButton'
 import Player from '../player/Player'
 
 
-function Floor({level, camera, floor, y, x}){
+const Floor = ({level, config}) =>{
 		let tilesGroup = [], tilesButtonsGroup = []
 		const {tiles} = level
 		const max = tiles.length
-		const rotateTiles = rotateLevel(tiles, camera)
+		const {floor, cameraPos, playerPos} = config
+		const {y,x} = playerPos
+		const rotateTiles = rotateLevel(tiles, cameraPos)
 		for(let i = 0; i < max; i++){
 			for(let k = 0; k < max; k++){
+				const texture = rotateTiles[i][k]
 				const tilesProps = {
 					// key: counter,
 					y: i,
 					x: k,
 					top: k + i,
 					left: k - i,
-					texture: rotateTiles[i][k],
+					texture
 				}
 				tilesGroup.push(<Tile key={`tile${k}_${i}`} {...tilesProps}/>)
 				if(k!==x || i!==y){
@@ -39,12 +42,7 @@ function Floor({level, camera, floor, y, x}){
 }
 
 const mapStateToProps = ({config}) => {
-	return { 
-		camera: config.cameraPos,
-		floor: config.floor,
-		y: config.y,
-		x: config.x,
-	}
+	return {config}
 }
 
 export default connect(mapStateToProps)(Floor)

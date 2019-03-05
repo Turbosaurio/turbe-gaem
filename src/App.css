@@ -29,15 +29,17 @@ body {
 
 .ui-buttons-container {
   position: fixed;
-  bottom: 50px;
-  left: 15px; }
-  .ui-buttons-container > div {
+  bottom: 0;
+  left: 0; }
+  .ui-buttons-container div {
+    width: 220px;
+    font-size: 1rem;
     background-color: white;
-    font-size: 12px;
-    padding: 10px;
-    top: 50px;
-    left: 0;
-    text-align: center; }
+    padding: 3px; }
+    .ui-buttons-container div span {
+      color: red; }
+    .ui-buttons-container div + div {
+      margin-top: 2px; }
   .ui-buttons-container button + button {
     margin-left: 5px; }
   .ui-buttons-container > button {
@@ -51,7 +53,7 @@ body {
     overflow: hidden; }
     .ui-buttons-container > button:hover {
       background-color: rgba(75, 75, 200, 0.3); }
-    .ui-buttons-container > button:nth-of-type(1) {
+    .ui-buttons-container > button:nth-of-type(2) {
       transform: rotateY(180deg); }
 
 #floor1 {

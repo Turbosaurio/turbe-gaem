@@ -44,9 +44,9 @@ export const rotateLevel = (arr, cam) =>{
 export const rotatePlayer = (y, x, cam, max) =>{
 	switch(cam){
 		case 'ori': return {y, x}
-		case "rot": return {y: x, x: max-y}
+		case "rot": return {y: y, x: max-x}
 		case "inv": return {y: max-y, x: max-x}
-		case "rev": return {y: max-x, x: y}
+		case "rev": return {y: max-y, x: x}
 		default: return {y,x}
 	}
 }
