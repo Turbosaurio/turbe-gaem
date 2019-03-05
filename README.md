@@ -10,4 +10,6 @@ This is a personal project, started as jQuery, got a lot of stuff with that. Cur
 #### Stuff working on currently using React:
 * [x] Create Redux store with levels and configuration.
 * [x] Render the map with square arrays, tiles position and sprite positioning.
-* [ ] Rotate the camera
+* [x] Rotate camera, only what is displayed changes, values remain the same.
+* [x] Create player which also rotates its position and face with the camera.
+* [ ] Implement A* pathfinding algorithym as a simple function that receives the map, starting and end positions.
