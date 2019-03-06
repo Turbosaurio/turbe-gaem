@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import './App.css'
+import MapArray from './functions/pathfinder2'
 import {connect} from 'react-redux'
 import {handleLevelsData} from './redux/actions/shared'
 import Floor from './architecture/Floor'
@@ -16,11 +17,10 @@ class App extends Component{
 		return (
 			<div>
 				{
-					finish === 'done' && 
-						<Fragment>
-							<Floor level={level1}/>
-							<UICamera />
-						</Fragment>
+					finish === 'done' &&
+						<div className="squares-test">
+							<MapArray />
+						</div> 
 				}
 			</div>
     )

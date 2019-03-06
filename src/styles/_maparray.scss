@@ -1,0 +1,22 @@
+.squares-test{
+	background-color: red;
+}
+.square{
+	position: absolute;
+	width: 160px;
+	height: 160px;
+	padding: 15px;
+	box-sizing: border-box;
+	font-size: 1rem;
+	color: white;
+	border: 1px solid white;
+	&.current{
+		background-color: green;
+	}
+	&.open{
+		background-color: purple;
+	}
+	&.closed{
+		background-color: black;
+	}
+}

@@ -2,68 +2,83 @@ body {
   margin: 0;
   padding: 0;
   background-color: #323232;
-  font-family: Helvetica, Verdana, sans-serif; }
+  font-family: Helvetica, Verdana, sans-serif;
+}
 
 .floor {
   position: relative;
-  left: 1421px; }
-  .floor > .tile {
-    position: absolute;
-    width: 150px;
-    height: 300px;
-    overflow: hidden;
-    color: red;
-    font-size: 1rem;
-    padding-top: 25px;
-    box-sizing: border-box; }
-  .floor > .tile-button {
-    position: absolute;
-    display: block;
-    width: 98px;
-    height: 50PX;
-    border: none;
-    border-radius: 50%;
-    background-color: transparent; }
-    .floor > .tile-button:hover {
-      background-color: rgba(25, 25, 25, 0.15); }
+  left: 1421px;
+}
+.floor > .tile {
+  position: absolute;
+  width: 150px;
+  height: 300px;
+  overflow: hidden;
+  color: red;
+  font-size: 1rem;
+  padding-top: 25px;
+  box-sizing: border-box;
+}
+.floor > .tile-button {
+  position: absolute;
+  display: block;
+  width: 98px;
+  height: 50PX;
+  border: none;
+  border-radius: 50%;
+  background-color: transparent;
+}
+.floor > .tile-button:hover {
+  background-color: rgba(25, 25, 25, 0.15);
+}
 
 .ui-buttons-container {
   position: fixed;
   bottom: 0;
-  left: 0; }
-  .ui-buttons-container div {
-    width: 220px;
-    font-size: 1rem;
-    background-color: white;
-    padding: 3px; }
-    .ui-buttons-container div span {
-      color: red; }
-    .ui-buttons-container div + div {
-      margin-top: 2px; }
-  .ui-buttons-container button + button {
-    margin-left: 5px; }
-  .ui-buttons-container > button {
-    border: none;
-    width: 50px;
-    height: 50px;
-    background-size: 50%;
-    background-position: center center;
-    background-repeat: no-repeat;
-    color: transparent;
-    overflow: hidden; }
-    .ui-buttons-container > button:hover {
-      background-color: rgba(75, 75, 200, 0.3); }
-    .ui-buttons-container > button:nth-of-type(2) {
-      transform: rotateY(180deg); }
+  left: 0;
+}
+.ui-buttons-container div {
+  width: 220px;
+  font-size: 1rem;
+  background-color: white;
+  padding: 3px;
+}
+.ui-buttons-container div span {
+  color: red;
+}
+.ui-buttons-container div + div {
+  margin-top: 2px;
+}
+.ui-buttons-container button + button {
+  margin-left: 5px;
+}
+.ui-buttons-container > button {
+  border: none;
+  width: 50px;
+  height: 50px;
+  background-size: 50%;
+  background-position: center center;
+  background-repeat: no-repeat;
+  color: transparent;
+  overflow: hidden;
+}
+.ui-buttons-container > button:hover {
+  background-color: rgba(75, 75, 200, 0.3);
+}
+.ui-buttons-container > button:nth-of-type(2) {
+  transform: rotateY(180deg);
+}
 
 #floor1 {
-  top: 225px; }
+  top: 225px;
+}
 
 #button_test {
   position: fixed;
   top: 0;
   width: 100px;
-  left: calc(50% - 50px); }
+  left: calc(50% - 50px);
+}
 
 .player {
   position: absolute;
@@ -75,4 +90,31 @@ body {
   padding-top: 25px;
   box-sizing: border-box;
   background-size: auto;
-  background-repeat: no-repeat; }
+  background-repeat: no-repeat;
+}
+
+.squares-test {
+  background-color: red;
+}
+
+.square {
+  position: absolute;
+  width: 160px;
+  height: 160px;
+  padding: 15px;
+  box-sizing: border-box;
+  font-size: 1rem;
+  color: white;
+  border: 1px solid white;
+}
+.square.current {
+  background-color: green;
+}
+.square.open {
+  background-color: purple;
+}
+.square.closed {
+  background-color: black;
+}
+
+/*# sourceMappingURL=App.css.map */
