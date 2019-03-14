@@ -19,7 +19,8 @@ class App extends Component{
 				{
 					finish === 'done' &&
 						<div className="squares-test">
-							<MapArray />
+							<Floor level={level1}/>
+							<UICamera />
 						</div> 
 				}
 			</div>

@@ -1,5 +1,5 @@
 export const onlyRotable = value =>{
-	const rotableTiles = [1,81,181,241,321];
+	const rotableTiles = [0,1,2,3,180,181,182,183];
 	const rotable = _ => {
 		let res = true
 		for(let tile of rotableTiles){
