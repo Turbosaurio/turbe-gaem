@@ -59,7 +59,7 @@ const config = {
 	userName: 'none',
 	cameraPos: 'ori',
 	face: 6,
-	playerPos: {y: 7, x: 7}
+	playerPos: {y: 5, x: 5}
 }
 
 
