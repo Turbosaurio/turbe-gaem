@@ -93,6 +93,16 @@ body {
   background-repeat: no-repeat;
 }
 
+.ui-debugger {
+  position: fixed;
+  width: 100px;
+  bottom: 0;
+  right: 0;
+  padding: 10px;
+  background-color: white;
+  color: black;
+}
+
 .squares-test {
   background-color: red;
 }

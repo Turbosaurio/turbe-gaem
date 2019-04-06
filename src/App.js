@@ -5,6 +5,7 @@ import {connect} from 'react-redux'
 import {handleLevelsData} from './redux/actions/shared'
 import Floor from './architecture/Floor'
 import UICamera from './ui/UICamera'
+import DebuggingTools from './ui/DebuggingTools'
 
 
 class App extends Component{
@@ -21,6 +22,7 @@ class App extends Component{
 						<div className="squares-test">
 							<Floor level={level1}/>
 							<UICamera />
+							<DebuggingTools />
 						</div> 
 				}
 			</div>
