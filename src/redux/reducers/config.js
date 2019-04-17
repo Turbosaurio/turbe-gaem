@@ -2,6 +2,7 @@ import {
 	GET_CONFIG,
 	SET_CONFIG_KEY,
 	SET_PLAYER_COORDS,
+	SET_TARGET_COORDS,
 } from '../actions/config'
 
 export default function levels ( state = {}, action){
@@ -22,6 +23,11 @@ export default function levels ( state = {}, action){
 					y: action.val.y,
 					x: action.val.x,
 				}
+			}
+		case SET_TARGET_COORDS:
+			return{
+				...state,
+				targetPos: action.val
 			}
 		default: return state
 	}

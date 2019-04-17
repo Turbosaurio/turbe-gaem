@@ -95,7 +95,7 @@ body {
 
 .ui-debugger {
   position: fixed;
-  width: 100px;
+  width: auto;
   bottom: 0;
   right: 0;
   padding: 10px;

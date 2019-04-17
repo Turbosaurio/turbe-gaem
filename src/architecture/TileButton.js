@@ -1,14 +1,11 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {setPlayerCoords} from '../redux/actions/config'
+import {setTargetCoords} from '../redux/actions/config'
 import {rotatePlayer} from '../functions/cameraFunctions'
 import {findPath} from '../functions/pathfinder2' 
 
-const _findPath = (map, start, end) =>{
-	findPath(map, start, end)
-}
 
-function TileButton ({top, left, y, x, config, _movePlayer, level}){
+function TileButton ({top, left, y, x, config, _setTargetPosition, level}){
 	const {cameraPos, floorSize, playerPos} = config
 	const newPos = rotatePlayer(y, x, cameraPos, floorSize)
 	return(
@@ -17,7 +14,7 @@ function TileButton ({top, left, y, x, config, _movePlayer, level}){
 			title={`${y}_${x}`}
 			className="tile-button"
 			onClick={ _ => 
-				_findPath(level, playerPos, {y: newPos.y, x: newPos.x})
+				_setTargetPosition({y: newPos.y, x: newPos.x})
 			}
 		/>
 	)
@@ -31,7 +28,7 @@ const mapStateTopProps = ({config, levels}) => {
 
 const mapDispatchToProps = dispatch => {
 	return{
-		_movePlayer : ({y, x}) => dispatch(setPlayerCoords({y,x})),
+		_setTargetPosition : obj => dispatch(setTargetCoords(obj)),
 	}
 }
 
