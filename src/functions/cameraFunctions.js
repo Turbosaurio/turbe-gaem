@@ -41,12 +41,13 @@ export const rotateLevel = (arr, cam) =>{
 	return a
 }
 
-export const rotatePlayer = (y, x, cam, max) =>{
+export const rotatePlayer = (y, x, cam, t) =>{
+	const ty = parseInt( t - y)
+	const tx = parseInt( t - x)
 	switch(cam){
-		case 'ori': return {y, x}
-		case "rot": return {y: y, x: max-x}
-		case "inv": return {y: max-y, x: max-x}
-		case "rev": return {y: max-y, x: x}
+		case "rot": return {y: x, x: ty}
+		case "inv": return {y: ty, x: tx}
+		case "rev": return {y: tx, x: y}
 		default: return {y,x}
 	}
 }

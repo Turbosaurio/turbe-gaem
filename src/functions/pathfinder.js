@@ -204,7 +204,7 @@ export const starRoute = (arrMap, start, end, farbe) =>{
 		getNodes(star_node_start , star_node_current , star_node_end,arrMap)
 	}
 
-	var arr=findRoute(star_closedNodes,start)
+	let arr = findRoute(star_closedNodes,start)
 	arr.reverse()
 	star_resetVars()
 	return arr

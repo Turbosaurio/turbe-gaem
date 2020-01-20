@@ -1,0 +1,29 @@
+@mixin cleanse-button($width, $height: $width, $round: false){
+	border: none;
+	display: block;
+	width: $width;
+	height: $height;
+	color: transparent;
+	overflow-x: hidden;
+	@if $round {
+		border-radius: 50%;
+	}
+}
+
+@mixin orbit-elements(
+		$radius,
+		$dimensions,
+		$total,
+	){
+	position: relative;
+	>*{
+		position: absolute;
+		width: map-get($dimensions, width);
+		height: map-get($dimensions, height);
+		@for $i from 1 through $total{
+			&:nth-child(#{$i}){
+
+			}
+		}
+	}
+}

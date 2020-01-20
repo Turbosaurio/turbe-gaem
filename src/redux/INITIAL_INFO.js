@@ -55,12 +55,13 @@ const levels = {
 const config = {
 	floorSize: levels.level1.tiles.length - 1,
 	floor: 1,
+	levelSize: levels.level1.tiles[0].length,
 	currentFloor: 'level1',
 	userName: 'none',
 	cameraPos: 'ori',
-	face: 6,
-	playerPos: {y: 5, x: 5},
-	targetPos: {y:'', x:''}
+	face: 2,
+	playerPos: {y: 17, x: 7},
+	targetPos: {y:'', x:''},
 }
 
 

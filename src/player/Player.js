@@ -3,6 +3,8 @@ import {connect} from 'react-redux'
 
 import {setConfigKey} from '../redux/actions/config'
 import {rotatePlayer} from '../functions/cameraFunctions'
+import PlayerPanel from '../ui/PlayerPanel'
+
 
 class Player extends Component{
 	
@@ -70,7 +72,9 @@ class Player extends Component{
 			<div
 				className="player"
 				style={playerStyles}
-			/>
+			>
+				<PlayerPanel />
+			</div>
 		)
 	}
 }

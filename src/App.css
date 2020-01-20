@@ -5,33 +5,6 @@ body {
   font-family: Helvetica, Verdana, sans-serif;
 }
 
-.floor {
-  position: relative;
-  left: 1421px;
-}
-.floor > .tile {
-  position: absolute;
-  width: 150px;
-  height: 300px;
-  overflow: hidden;
-  color: red;
-  font-size: 1rem;
-  padding-top: 25px;
-  box-sizing: border-box;
-}
-.floor > .tile-button {
-  position: absolute;
-  display: block;
-  width: 98px;
-  height: 50PX;
-  border: none;
-  border-radius: 50%;
-  background-color: transparent;
-}
-.floor > .tile-button:hover {
-  background-color: rgba(25, 25, 25, 0.15);
-}
-
 .ui-buttons-container {
   position: fixed;
   bottom: 0;
@@ -69,10 +42,6 @@ body {
   transform: rotateY(180deg);
 }
 
-#floor1 {
-  top: 225px;
-}
-
 #button_test {
   position: fixed;
   top: 0;
@@ -103,6 +72,32 @@ body {
   color: black;
 }
 
+.ui-player-panel {
+  z-index: 99999;
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: 0;
+}
+.ui-player-panel .player-actions-menu {
+  position: relative;
+}
+.ui-player-panel .action-button {
+  border: none;
+  display: block;
+  width: 40px;
+  height: 40px;
+  color: transparent;
+  overflow-x: hidden;
+  border-radius: 50%;
+}
+.ui-player-panel .action-button.open {
+  position: relative;
+}
+.ui-player-panel .action-button.open:before, .ui-player-panel .action-button.open:after {
+  content: "";
+  position: absolute;
+}
 .squares-test {
   background-color: red;
 }

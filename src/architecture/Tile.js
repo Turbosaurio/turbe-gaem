@@ -1,4 +1,5 @@
 import React from 'react'
+import {createUseStyles} from 'react-jss'
 import {connect} from 'react-redux'
 import {onlyRotable} from '../functions/cameraFunctions'
 
@@ -19,6 +20,16 @@ const tileTexture = num =>{
 	}
 }
 
+const tileStyle = createUseStyles({
+	tile:{
+		position: 'absolute',
+		height: props => props.height,
+		width: props => props.width,
+		overflow: 'hidden',
+	},
+})
+
+
 const textureCamera = (cam, val) => {
 	switch(cam){
 		case 'rot':
@@ -34,9 +45,13 @@ const textureCamera = (cam, val) => {
 
 const Tile = ({texture, top, left, camera}) => {
 	const newTexture = onlyRotable(texture) ? texture + textureCamera(camera, texture) : texture
+	const jss = tileStyle({
+		height: 300,
+		width: 150
+	})
 	return(
 		<div
-			className='tile'
+			className={jss.tile}
 			style={{
 				...tileTexture(newTexture),
 				top: top * 35,

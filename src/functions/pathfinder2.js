@@ -64,7 +64,7 @@ const _getNeighNodes = (max, start, end) =>{
 }
 
 
-const _minIndex = (obj, key) =>{
+export const minIndex = (obj, key) =>{
 
   const names = Object.keys(obj)
   const arr = names.map( i => obj[i][key])
@@ -74,11 +74,7 @@ const _minIndex = (obj, key) =>{
 }
 
 
-export const findPath = (map, start, end) =>{
-	let openNodes = _getNeighNodes(map.length, start, end)
-	const destination = _minIndex(openNodes, 'destination')
-	const total = _minIndex(openNodes, 'total')
-	const origin = _minIndex(openNodes, 'origin')
-	return {destination, total, origin}
+export const getOpenNodes = (start, end) =>{
+	return _getNeighNodes(20, start, end)
 }
 
