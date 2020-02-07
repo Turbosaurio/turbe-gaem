@@ -5,7 +5,7 @@ import {connect} from 'react-redux'
 import {rotateLevel} from '../functions/cameraFunctions'
 import Tile from './Tile'
 import TileButton from './TileButton'
-import Player from '../player/Player'
+import Player2 from '../player/Player2'
 
 
 const floorStyles = createUseStyles({
@@ -16,7 +16,7 @@ const floorStyles = createUseStyles({
 })
 
 
-const Floor = ({level, config}) =>{
+const Floor = ({level, config, players}) =>{
 	let tilesGroup = [], tilesButtonsGroup = []
 	const {tiles} = level
 	const max = tiles.length
@@ -47,14 +47,24 @@ const Floor = ({level, config}) =>{
 	return(
 		<div className={jss.floor} id={level.name}>
 			{tilesGroup}
-			{floor === 1 && <Player />}
+			{floor === 1 && 
+
+				players.map( player => 
+					<Player2
+						key={player.name}
+						name={player.name}
+						position={player.position}
+						face={player.face}
+					/>
+				)
+			}
 			{/*floor === 1 && tilesButtonsGroup*/}
 		</div>
 	)
 }
 
-const mapStateToProps = ({config}) => {
-	return {config}
+const mapStateToProps = ({config, players}) => {
+	return {config, players}
 }
 
 export default connect(mapStateToProps)(Floor)

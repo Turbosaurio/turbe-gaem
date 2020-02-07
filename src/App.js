@@ -11,12 +11,13 @@ const App  = ({init, levels, finish}) => {
 	useEffect( _ =>{
 		init()
 	},[])
+
 	return (
 		<div>
 			{
 				finish === 'done' &&
 					<DragScroll>
-						<Floor level={levels.level1}/>
+						<Floor level={levels.level1} />
 						<UICamera/>
 					</DragScroll>
 			}

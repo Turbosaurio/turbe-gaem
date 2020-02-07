@@ -10,14 +10,15 @@ class Player extends Component{
 	
 	cameraFace(cam, face){
 		switch(cam){
-			case 'ori':
-				return face
+
 			case 'rot':
 				return face + 2 > 7 ? (face + 2) % 7 - 1 : face + 2
 			case 'inv':
 				return face + 4 > 7 ? (face + 4) % 7 - 1 : face + 4
 			case 'rev':
 				return face + 6 > 7 ? (face + 6) % 7 - 1 : face + 6
+				
+			case 'ori':
 			default: return face
 		}
 	}
@@ -63,7 +64,7 @@ class Player extends Component{
 		const newPos = rotatePlayer(y,x,cameraPos, floorSize)
 		const playerStyles = {
 			...this.getFace(this.cameraFace(cameraPos, face)),
-			backgroundImage : 'url(player/player.png)',
+			backgroundImage : 'url(player/player2.png)',
 			top: `${(newPos.y + newPos.x) * 35}px`,
 			left: `${(newPos.x - newPos.y) * 75}px`
 		}

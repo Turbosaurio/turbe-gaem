@@ -5,15 +5,21 @@ import {useEventListener} from '../functions/useEventListener'
 
 const UICamera = ({config, currentLevel, _setCamera, _movePlayer}) =>{
 
-	const {playerPos, levelSize} = config
+	const {playerPos, levelSize, cameraPos} = config
 
 	useEventListener('keypress', useCallback(
 		({keyCode}) => {
 			switch(keyCode){
-				case 119 : return moveSelected('up')
-				case 97 : return moveSelected('left')
-				case 115 : return moveSelected('down')
-				case 100 : return moveSelected('right')
+				case 119 : return moveSelected('up') // w
+				case 100 : return moveSelected('right') // d
+				case 115 : return moveSelected('down') // x
+				case 97 : return moveSelected('left') // a
+
+				case 101 : return moveSelected('upRight') // e
+				case 99 : return moveSelected('downRight') // c
+				case 122 : return moveSelected('downLeft') // z
+				case 113 : return moveSelected('upLeft') // q
+
 				default : return null
 			}	
 		}
@@ -21,18 +27,65 @@ const UICamera = ({config, currentLevel, _setCamera, _movePlayer}) =>{
 
 	const moveSelected = direction =>{
 		const {y, x} = playerPos
-		let target
-		switch(direction){
-			case 'up': return handleSelected('y', -1)
-			case 'left': return handleSelected('x', -1)
-			case 'down': return handleSelected('y', 1)
-			case 'right': return handleSelected('x', 1)
-			default: return null
+		
+		switch(cameraPos){
+			case 'rot':
+				switch(direction){
+					case 'upLeft': return handleMove({y: 1, x: 0})
+					case 'up': return handleMove({y: 1, x: -1})
+					case 'upRight': return handleMove({x: -1, y: 0})
+					case 'right': return handleMove({y: -1, x: -1})
+					case 'downRight': return handleMove({y: -1, x: 0})
+					case 'down': return handleMove({y: -1, x: 1})
+					case 'downLeft': return handleMove({x: 1, y: 0})
+					case 'left': return handleMove({y: 1, x: 1})
+					default: return null
+				}
+			case 'rev':
+				switch(direction){
+					case 'up': return handleMove({y: -1, x: 1})
+					case 'right': return handleMove({y: 1, x: 1})
+					case 'down': return handleMove({y: 1, x: -1})
+					case 'left': return handleMove({y: -1, x: -1})
+					case 'downLeft': return handleMove({x: -1, y: 0})
+					case 'upLeft': return handleMove({y: -1, x: 0})
+					case 'upRight': return handleMove({x: 1, y: 0})
+					case 'downRight': return handleMove({y: 1, x: 0})
+					default: return null
+				}
+			case 'inv':
+				switch(direction){
+					case 'upLeft': return handleMove({y: 0, x: 1})
+					case 'up': return handleMove({y: 1, x: 1})
+					case 'upRight': return handleMove({y: 1, x: 0})
+					case 'right': return handleMove({y: 1, x: -1})
+					case 'downRight': return handleMove({y: 0, x: -1})
+					case 'down': return handleMove({y: -1, x: -1})
+					case 'downLeft': return handleMove({y: -1, x: 0})
+					case 'left': return handleMove({y: -1, x: 1})
+					default: return null
+				}
+			case 'ori':
+				switch(direction){
+					case 'upLeft': return handleMove({y: 0, x: -1})
+					case 'up': return handleMove({y: -1, x: -1})
+					case 'upRight': return handleMove({y: -1, x: 0})
+					case 'right': return handleMove({y: -1, x: 1})
+					case 'downRight': return handleMove({y: 0, x: 1})
+					case 'down': return handleMove({y: 1, x: 1})
+					case 'downLeft': return handleMove({y: 1, x: 0})
+					case 'left': return handleMove({y: 1, x: -1})
+					default: return null
+				}
+			default: console.log('not valid key')
 		}
 	}
 
-	const handleSelected = (key, val) => {
-		_movePlayer({...playerPos, [key]: playerPos[key] + val })	
+	const handleMove = ({y, x}) => {
+		_movePlayer({
+			y: playerPos.y + y,
+			x: playerPos.x + x,
+		})
 	}
 
 	const handleRotation = (dir, cam) =>{
@@ -58,7 +111,6 @@ const UICamera = ({config, currentLevel, _setCamera, _movePlayer}) =>{
 	const handleCameraChange = (dir, cam) =>{ 
 		_setCamera(handleRotation(dir, cam))
 	}
-	const {cameraPos} = config
 
 	const style = {
 		backgroundImage: "url('ui-images/rotate-arrow.svg')"
