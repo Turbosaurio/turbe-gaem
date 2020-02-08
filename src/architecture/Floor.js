@@ -38,8 +38,8 @@ const Floor = ({level, config, players}) =>{
 				texture
 			}
 			tilesGroup.push(<Tile key={`tile${k}_${i}`} {...tilesProps}/>)
+			tilesButtonsGroup.push(<TileButton key={`tileButton${k}_${i}`} {...tilesProps}/>)
 			// if(k !== x || i !== y){
-				// tilesButtonsGroup.push(<TileButton key={`tileButton${k}_${i}`} {...tilesProps}/>)
 			// }	
 		}
 	}
@@ -58,7 +58,7 @@ const Floor = ({level, config, players}) =>{
 					/>
 				)
 			}
-			{/*floor === 1 && tilesButtonsGroup*/}
+			{floor === 1 && tilesButtonsGroup}
 		</div>
 	)
 }

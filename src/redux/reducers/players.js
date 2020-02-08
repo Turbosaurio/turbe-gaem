@@ -1,6 +1,6 @@
 import{
 	GET_PLAYERS,
-	MOVE_PLAYER,	
+	MOVE_PLAYER,
 } from '../actions/players'
 
 export default function players ( state = [], action){
@@ -10,6 +10,20 @@ export default function players ( state = [], action){
 				...state,
 				...action.val
 			]
+		case MOVE_PLAYER:
+			return state.map( player => {
+				if(player._id !== action.val.id){
+					return player
+				}
+				return {
+					...player,
+					position: {
+						y: action.val.y,
+						x: action.val.x
+					}
+				}
+			})
+			
 		default : return state
 	}
 }

@@ -1,8 +1,11 @@
 import React from 'react'
-import {createUseStyles} from 'react-jss'
 import {connect} from 'react-redux'
-import {setConfigKey} from '../redux/actions/config'
-import {rotatePlayer} from '../functions/cameraFunctions'
+import {createUseStyles} from 'react-jss'
+
+import axios from 'axios'
+
+import { movePlayer } from '../redux/actions/players'
+import { rotatePlayer } from '../functions/cameraFunctions'
 
 
 const tileButtonStyles = createUseStyles({
@@ -11,18 +14,18 @@ const tileButtonStyles = createUseStyles({
 		display: 'block',
 		width: 98,
 		height: 50,
-		border: 'none',
-		backgroundColor: 'black',
+		border: '1px solid white',
+		backgroundColor: 'transparent',
 		borderRadius: '50%',
 		opacity: 0,
 		'&:hover':{
-			opacity: .25,
+			opacity: 1,
 		}
 	}
 })
 
 
-const TileButton = ({top, left, y, x, config, _setConfigKey, level}) => {
+const TileButton = ({top, left, y, x, config, _movePlayer, level}) => {
 	const {cameraPos, floorSize, playerPos} = config
 	const newPos = rotatePlayer(y, x, cameraPos, floorSize)
 	const targetPos = {y: newPos.y, x: newPos.x}
@@ -33,7 +36,8 @@ const TileButton = ({top, left, y, x, config, _setConfigKey, level}) => {
 			title={`${y}_${x}`}
 			className={jss.tile_button}
 			onClick={ _ => {
-				_setConfigKey('targetPos', targetPos)
+				// _setConfigKey('targetPos', targetPos)
+				_movePlayer({y, x})
 			}}
 		/>
 	)
@@ -47,7 +51,21 @@ const mapStateTopProps = ({config, levels}) => {
 
 const mapDispatchToProps = dispatch => {
 	return{
-		_setConfigKey : (key, data) => dispatch(setConfigKey({key, data}))
+		_movePlayer : async target => {
+			const body = {
+				"id": "5e3cb842fbd024400461b8dd",
+				"y": target.y,
+				"x": target.x,
+			}
+			await axios({
+				headers: { "Content-Type" : "application/json" },
+				baseURL: "http://localhost:5000/api/player_position",
+				method: "post",
+				data: body,
+			})
+			await dispatch(movePlayer(body))
+				
+		}
 	}
 }
 

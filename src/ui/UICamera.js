@@ -114,8 +114,8 @@ const UICamera = ({config, currentLevel, _setCamera, _movePlayer}) =>{
 
 		const body = {
 			"id": "5e3cb842fbd024400461b8dd",
-			"y": 9,
-			"x": 7,
+			"y": 2,
+			"x": 2,
 		}
 		axios({
 			headers: { "Content-Type" : "application/json" },
@@ -126,7 +126,7 @@ const UICamera = ({config, currentLevel, _setCamera, _movePlayer}) =>{
 
 		// instance({
 		// })
-			.then( res => console.log(res))
+			.then( res => console.log(res.data))
 			.catch( err => console.log(err))
 	}
 
@@ -146,7 +146,7 @@ const UICamera = ({config, currentLevel, _setCamera, _movePlayer}) =>{
 		<div className="ui-buttons-container">
 			<button style={style} onClick={_ => handleCameraChange('left', cameraPos)}>left</button>
 			<button style={style} onClick={_ => handleCameraChange('right', cameraPos)}>right</button>
-			<button onClick={params}>post</button>
+			<button onClick={elPosteo}>post</button>
 			{
 				Object.keys(config).map( d => {
 					const div = config[d]

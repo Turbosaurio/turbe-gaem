@@ -88,7 +88,7 @@ router.post('/player_position', jsonParser,  (req, res) => {
 				if(err){
 					return console.log(err)
 				} else {
-					return res.json({updated: id})
+					return res.json({ results: req.body })
 				}
 			}
 		)
