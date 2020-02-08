@@ -1,11 +1,13 @@
 import React, {useCallback} from "react"
 import {connect} from 'react-redux'
+import axios from 'axios'
+
 import {setConfigKey} from '../redux/actions/config'
 import {useEventListener} from '../functions/useEventListener'
 
 const UICamera = ({config, currentLevel, _setCamera, _movePlayer}) =>{
 
-	const {playerPos, levelSize, cameraPos} = config
+	const {playerPos, cameraPos} = config
 
 	useEventListener('keypress', useCallback(
 		({keyCode}) => {
@@ -108,6 +110,30 @@ const UICamera = ({config, currentLevel, _setCamera, _movePlayer}) =>{
 		}
 	}
 
+	function elPosteo(){
+
+		const body = {
+			"id": "5e3cb842fbd024400461b8dd",
+			"y": 9,
+			"x": 7,
+		}
+		axios({
+			headers: { "Content-Type" : "application/json" },
+			baseURL: "http://localhost:5000/api/player_position",
+			method: "post",
+			data: body,
+		})
+
+		// instance({
+		// })
+			.then( res => console.log(res))
+			.catch( err => console.log(err))
+	}
+
+	function params(){
+		
+	}
+
 	const handleCameraChange = (dir, cam) =>{ 
 		_setCamera(handleRotation(dir, cam))
 	}
@@ -120,6 +146,7 @@ const UICamera = ({config, currentLevel, _setCamera, _movePlayer}) =>{
 		<div className="ui-buttons-container">
 			<button style={style} onClick={_ => handleCameraChange('left', cameraPos)}>left</button>
 			<button style={style} onClick={_ => handleCameraChange('right', cameraPos)}>right</button>
+			<button onClick={params}>post</button>
 			{
 				Object.keys(config).map( d => {
 					const div = config[d]

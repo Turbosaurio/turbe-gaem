@@ -14,10 +14,10 @@ const MONGO_DEFAULT_SETTING = process.env.DEFAULT_SETTINGS
 
 const jsonParser = bodyParser.json()
 
-let settings, players, player
+let db
 
 router.get('/settings', (req, res) => {
-	settings.collection('settings').findOne({
+	db.collection('settings').findOne({
 		_id: ObjectId(MONGO_DEFAULT_SETTING)
 	},(err, data) =>{
 		if(err){
@@ -30,8 +30,23 @@ router.get('/settings', (req, res) => {
 	})
 })
 
+router.get('/maps', (req, res) => {
+	db.collection('maps').findOne({
+		_id: ObjectId('5e3b7ce713d04a1028b991ba')
+	},(err, data) =>{
+		if(err){
+			console.log(err)
+			return req.json({ success: false, err})
+		} else {
+			console.log(data)
+			console.log('levels loaded successfully')
+			return res.json({ success: true, data })
+		}
+	})
+})
+
 router.get('/players', (req, res) => {
-	players.collection('players')
+	db.collection('players')
 		.find({ type: 'player'})
 		.toArray(
 			(err, data) => {
@@ -48,7 +63,7 @@ router.get('/players', (req, res) => {
 
 router.get('/player', (req,res) => {
 	const { player_name } = req.query
-	players.collection('players')
+	db.collection('players')
 		.findOne(
 			{ name : player_name },
 			(err, data) => {
@@ -64,7 +79,7 @@ router.get('/player', (req,res) => {
 router.post('/player_position', jsonParser,  (req, res) => {
 	const { id, x, y } = req.body
 	const update = { position: { x, y } }
-	players.collection('players')
+	db.collection('players')
 		.updateOne(
 			{ _id: ObjectId(id) },
 			{ $set: update },
@@ -79,12 +94,32 @@ router.post('/player_position', jsonParser,  (req, res) => {
 		)
 })
 
+
+router.post('/levels_update', jsonParser, (req, res) => {
+	const { levels } = req.body
+	const update = { levels: levels }
+	db.collection('maps')
+		.updateOne(
+			{ _id: ObjectId('5e3b7ce713d04a1028b991ba')},
+			{ $set: update },
+			{ upsert: false },
+			err=>{
+				if(err){
+					return console.log('did not update', err)
+				} else {
+					return res.json({ status: 'levels updated' })
+				}
+			}
+		)
+})
+
 const client  = new MongoClient(MONGO_URL, { useNewUrlParser: true, useUnifiedTopology: true })
 
 client.connect ( (err, client) => {	
 	if(err) return console.log(err)
-	settings = client.db('gaem')
-	players = client.db('gaem')
+
+	db = client.db('gaem')
+
 	app.use(cors())
 	app.use('/api', router)
 	app.listen(PORT, () =>

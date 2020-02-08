@@ -20,8 +20,8 @@ const Floor = ({level, config, players}) =>{
 	let tilesGroup = [], tilesButtonsGroup = []
 	const {tiles} = level
 	const max = tiles.length
-	const {floor, cameraPos, playerPos} = config
-	const {y,x} = playerPos
+	const {floor, cameraPos} = config
+	// const {y,x} = playerPos
 	const rotateTiles = rotateLevel(tiles, cameraPos)
 
 	const jss = floorStyles()
@@ -38,9 +38,9 @@ const Floor = ({level, config, players}) =>{
 				texture
 			}
 			tilesGroup.push(<Tile key={`tile${k}_${i}`} {...tilesProps}/>)
-			if(k!==x || i!==y){
-				tilesButtonsGroup.push(<TileButton key={`tileButton${k}_${i}`} {...tilesProps}/>)
-			}	
+			// if(k !== x || i !== y){
+				// tilesButtonsGroup.push(<TileButton key={`tileButton${k}_${i}`} {...tilesProps}/>)
+			// }	
 		}
 	}
 
