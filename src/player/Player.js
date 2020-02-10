@@ -1,10 +1,9 @@
-import React, {Component} from 'react'
-import {connect} from 'react-redux'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
 
-import {setConfigKey} from '../redux/actions/config'
-import {rotatePlayer} from '../functions/cameraFunctions'
+import { setConfigKey } from '../redux/actions/config'
+import { rotatePlayer } from '../functions/cameraFunctions'
 import PlayerPanel from '../ui/PlayerPanel'
-
 
 class Player extends Component{
 	

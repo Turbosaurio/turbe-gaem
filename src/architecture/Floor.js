@@ -47,6 +47,7 @@ const Floor = ({level, config, players}) =>{
 	return(
 		<div className={jss.floor} id={level.name}>
 			{tilesGroup}
+			{floor === 1 && tilesButtonsGroup}
 			{floor === 1 && 
 
 				players.map( player => 
@@ -58,7 +59,6 @@ const Floor = ({level, config, players}) =>{
 					/>
 				)
 			}
-			{floor === 1 && tilesButtonsGroup}
 		</div>
 	)
 }

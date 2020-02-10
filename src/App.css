@@ -5,41 +5,37 @@ body {
   font-family: Helvetica, Verdana, sans-serif;
 }
 
-.ui-buttons-container {
+.ui-buttons-container-holder {
+  border: 5px solid black;
+  background-color: black;
   position: fixed;
   bottom: 0;
   left: 0;
 }
-.ui-buttons-container div {
-  width: 220px;
-  font-size: 1rem;
+.ui-buttons-container-holder div {
+  width: 300px;
+  font-size: 0.75rem;
   background-color: white;
   padding: 3px;
 }
-.ui-buttons-container div span {
+.ui-buttons-container-holder div span {
   color: red;
 }
-.ui-buttons-container div + div {
+.ui-buttons-container-holder div + div {
   margin-top: 2px;
 }
-.ui-buttons-container button + button {
+.ui-buttons-container-holder button + button {
   margin-left: 5px;
 }
-.ui-buttons-container > button {
+.ui-buttons-container-holder button {
   border: none;
-  width: 50px;
-  height: 50px;
-  background-size: 50%;
-  background-position: center center;
-  background-repeat: no-repeat;
-  color: transparent;
-  overflow: hidden;
 }
-.ui-buttons-container > button:hover {
+.ui-buttons-container-holder button.selected {
+  background-color: red;
+  color: white;
+}
+.ui-buttons-container-holder button:hover {
   background-color: rgba(75, 75, 200, 0.3);
-}
-.ui-buttons-container > button:nth-of-type(2) {
-  transform: rotateY(180deg);
 }
 
 #button_test {

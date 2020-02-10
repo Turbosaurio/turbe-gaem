@@ -5,7 +5,14 @@ import axios from 'axios'
 import {setConfigKey} from '../redux/actions/config'
 import {useEventListener} from '../functions/useEventListener'
 
-const UICamera = ({config, currentLevel, _setCamera, _movePlayer}) =>{
+const UICamera = ({
+		config,
+		players,
+		currentLevel,
+		_setCamera,
+		_movePlayer,
+		_changePlayer,
+	}) =>{
 
 	const {playerPos, cameraPos} = config
 
@@ -110,29 +117,9 @@ const UICamera = ({config, currentLevel, _setCamera, _movePlayer}) =>{
 		}
 	}
 
-	function elPosteo(){
 
-		const body = {
-			"id": "5e3cb842fbd024400461b8dd",
-			"y": 2,
-			"x": 2,
-		}
-		axios({
-			headers: { "Content-Type" : "application/json" },
-			baseURL: "http://localhost:5000/api/player_position",
-			method: "post",
-			data: body,
-		})
 
-		// instance({
-		// })
-			.then( res => console.log(res.data))
-			.catch( err => console.log(err))
-	}
-
-	function params(){
-		
-	}
+	
 
 	const handleCameraChange = (dir, cam) =>{ 
 		_setCamera(handleRotation(dir, cam))
@@ -143,10 +130,30 @@ const UICamera = ({config, currentLevel, _setCamera, _movePlayer}) =>{
 	}
 
 	return(
-		<div className="ui-buttons-container">
-			<button style={style} onClick={_ => handleCameraChange('left', cameraPos)}>left</button>
-			<button style={style} onClick={_ => handleCameraChange('right', cameraPos)}>right</button>
-			<button onClick={elPosteo}>post</button>
+		<div className="ui-buttons-container-holder">
+			<div className="ui-buttons-container">
+				<span>camera: </span>
+				<button onClick={_ => handleCameraChange('left', cameraPos)}>left</button>
+				<button onClick={_ => handleCameraChange('right', cameraPos)}>right</button>
+			</div>
+			<div className="ui-buttons-container">
+				<span>player: </span>
+				{ players.map(
+					({ _id, name}) => 
+						<button
+							value={_id}
+							key={ _id }
+							onClick={ () => _changePlayer(_id)}
+							className={`${ _id === config.selectedPlayer ? 'selected' : ''}`}
+						>{ name }
+						</button>
+				)}
+				
+			</div>
+			<div>
+				<input type="text" placeholder="message"/>
+				<button>send</button>
+			</div>
 			{
 				Object.keys(config).map( d => {
 					const div = config[d]
@@ -159,7 +166,8 @@ const UICamera = ({config, currentLevel, _setCamera, _movePlayer}) =>{
 }
 
 
-const mapStateToProps = ({levels, config}) => ({
+const mapStateToProps = ({levels, config, players}) => ({
+	players,
 	config,
 	currentLevel: levels[config.currentFloor].tiles
 })
@@ -167,6 +175,15 @@ const mapStateToProps = ({levels, config}) => ({
 const mapDispatchToProps = dispatch => ({
 	_setCamera: data => dispatch(setConfigKey({key: 'cameraPos', data})),
 	_movePlayer: data => dispatch(setConfigKey({key: 'playerPos', data})),
+	_changePlayer: async id => {
+		await axios({
+			headers: { "Content-Type" : "application/json" },
+			baseURL: "http://localhost:5000/api/settings_set_player",
+			method: "post",
+			data: { id },
+		})
+		await dispatch(setConfigKey({key: 'selectedPlayer', data: id}))
+	}
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(UICamera)

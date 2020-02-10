@@ -48,6 +48,7 @@ export const rotatePlayer = (y, x, cam, t) =>{
 		case "rot": return {y: x, x: ty}
 		case "inv": return {y: ty, x: tx}
 		case "rev": return {y: tx, x: y}
+		case "ori":
 		default: return {y,x}
 	}
 }

@@ -94,6 +94,24 @@ router.post('/player_position', jsonParser,  (req, res) => {
 		)
 })
 
+router.post('/settings_set_player', jsonParser, (req, res) => {
+	const { id } = req.body
+	db.collection('settings')
+		.updateOne(
+			{ _id: ObjectId("5e3a1ceb95b0361298633653") },
+			{ $set: { selectedPlayer: id}},
+			{ upset: false },
+			err => {
+				if(err){
+					return console.log(err)
+				} else {
+					return res.json({ status: 'Player changed' })
+				}
+			}
+
+		)
+})
+
 
 router.post('/levels_update', jsonParser, (req, res) => {
 	const { levels } = req.body

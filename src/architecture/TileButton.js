@@ -5,8 +5,6 @@ import {createUseStyles} from 'react-jss'
 import axios from 'axios'
 
 import { movePlayer } from '../redux/actions/players'
-import { rotatePlayer } from '../functions/cameraFunctions'
-
 
 const tileButtonStyles = createUseStyles({
 	tile_button:{
@@ -24,11 +22,21 @@ const tileButtonStyles = createUseStyles({
 	}
 })
 
+export const rotateCoords = ( y, x, cam ) =>{
+	const ty = parseInt( 19 - y)
+	const tx = parseInt( 19 - x)
+	switch(cam){
 
-const TileButton = ({top, left, y, x, config, _movePlayer, level}) => {
-	const {cameraPos, floorSize, playerPos} = config
-	const newPos = rotatePlayer(y, x, cameraPos, floorSize)
-	const targetPos = {y: newPos.y, x: newPos.x}
+		case "rot": return {y: tx, x: y}
+		case "rev": return {y: x, x: ty}
+
+		case "inv": return {y: ty, x: tx}
+		default: return { y, x }
+	}
+}
+
+
+const TileButton = ({top, left, y, x, cameraPos, _movePlayer, level, player}) => {
 	const jss = tileButtonStyles()
 	return(
 		<button
@@ -36,24 +44,24 @@ const TileButton = ({top, left, y, x, config, _movePlayer, level}) => {
 			title={`${y}_${x}`}
 			className={jss.tile_button}
 			onClick={ _ => {
-				// _setConfigKey('targetPos', targetPos)
-				_movePlayer({y, x})
+				_movePlayer(player, rotateCoords(y, x, cameraPos))
 			}}
 		/>
 	)
 }
 const mapStateTopProps = ({config, levels}) => {
 	return {
-		config,
+		player: config.selectedPlayer,
+		cameraPos: config.cameraPos,
 		level: levels[config.currentFloor].tiles
 	}
 }
 
 const mapDispatchToProps = dispatch => {
 	return{
-		_movePlayer : async target => {
+		_movePlayer : async (player, target) => {
 			const body = {
-				"id": "5e3cb842fbd024400461b8dd",
+				"id": player,
 				"y": target.y,
 				"x": target.x,
 			}
