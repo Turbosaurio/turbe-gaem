@@ -3,20 +3,20 @@ import {createUseStyles} from 'react-jss'
 import {connect} from 'react-redux'
 import {onlyRotable} from '../functions/cameraFunctions'
 
-const tileTexture = num =>{
-	const columns = 4,
-				rows = 5,
-				perPage = 20,
-				x = 150, ////////////sprite width
-				y = 300; //////////sprite height
-	
-	const	a = num % columns,
-			bg_pos_x = a * x * -1,
-			bg_pos_y = Math.floor( (num-1) / columns ) % rows * y * -1;
+const tileTexture = ( num, height, width ) =>{
+
+	const rows = 5, columns = 4, perPage = 20
+
+	const top = Math.floor(num / columns ) % rows
+	const left = num % columns
+	const page = Math.floor( num / perPage)
+
+	const backgroundImage = `url(textures/tiles${page}.png`
+	const backgroundPosition = `-${left * width}px -${top * height}px`
 
 	return {
-		backgroundImage: `url(textures/tiles${Math.floor((num-1)/perPage)}.png)`, 
-		backgroundPosition: `${bg_pos_x}px ${bg_pos_y}px`
+		backgroundImage,
+		backgroundPosition
 	}
 }
 
@@ -26,6 +26,7 @@ const tileStyle = createUseStyles({
 		height: props => props.height,
 		width: props => props.width,
 		overflow: 'hidden',
+		backgroundRepeat: 'no-repeat',
 	},
 })
 
@@ -44,16 +45,16 @@ const textureCamera = (cam, val) => {
 }
 
 const Tile = ({texture, top, left, camera}) => {
+
 	const newTexture = onlyRotable(texture) ? texture + textureCamera(camera, texture) : texture
-	const jss = tileStyle({
-		height: 300,
-		width: 150
-	})
+	const height = 300, width = 150
+	const jss = tileStyle({ height, width})
+
 	return(
 		<div
 			className={jss.tile}
 			style={{
-				...tileTexture(newTexture),
+				...tileTexture(newTexture, height, width),
 				top: top * 35,
 				left: left * 75,
 			}}
