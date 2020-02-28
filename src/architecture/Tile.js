@@ -25,7 +25,6 @@ const tileStyle = createUseStyles({
 		position: 'absolute',
 		height: props => props.height,
 		width: props => props.width,
-		overflow: 'hidden',
 		backgroundRepeat: 'no-repeat',
 	},
 })

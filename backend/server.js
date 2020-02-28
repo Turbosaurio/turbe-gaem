@@ -99,13 +99,31 @@ router.post('/settings_set_player', jsonParser, (req, res) => {
 	db.collection('settings')
 		.updateOne(
 			{ _id: ObjectId("5e3a1ceb95b0361298633653") },
-			{ $set: { selectedPlayer: id}},
-			{ upset: false },
+			{ $set: { selectedPlayer: id }},
+			{ upsert: false },
 			err => {
 				if(err){
 					return console.log(err)
 				} else {
 					return res.json({ status: 'Player changed' })
+				}
+			}
+
+		)
+})
+
+router.post('/settings_set_floor', jsonParser, (req, res) => {
+	const { floor } = req.body
+	db.collection('settings')
+		.updateOne(
+			{ _id: ObjectId("5e3a1ceb95b0361298633653") },
+			{ $set: { currentFloor: floor }},
+			{ upsert: false },
+			err => {
+				if(err){
+					return console.log(err)
+				} else {
+					return res.json({ status: 'Floor changed' })
 				}
 			}
 

@@ -7,11 +7,13 @@ import {useEventListener} from '../functions/useEventListener'
 
 const UICamera = ({
 		config,
+		levelNames,
 		players,
 		currentLevel,
 		_setCamera,
 		_movePlayer,
 		_changePlayer,
+		_changeFloor,
 	}) =>{
 
 	const {playerPos, cameraPos} = config
@@ -117,10 +119,6 @@ const UICamera = ({
 		}
 	}
 
-
-
-	
-
 	const handleCameraChange = (dir, cam) =>{ 
 		_setCamera(handleRotation(dir, cam))
 	}
@@ -131,11 +129,13 @@ const UICamera = ({
 
 	return(
 		<div className="ui-buttons-container-holder">
+
 			<div className="ui-buttons-container">
 				<span>camera: </span>
 				<button onClick={_ => handleCameraChange('left', cameraPos)}>left</button>
 				<button onClick={_ => handleCameraChange('right', cameraPos)}>right</button>
 			</div>
+
 			<div className="ui-buttons-container">
 				<span>player: </span>
 				{ players.map(
@@ -148,8 +148,19 @@ const UICamera = ({
 						>{ name }
 						</button>
 				)}
-				
 			</div>
+
+			<div className="ui-buttons-container">
+				<span>floor: </span>
+				{ levelNames.map( name =>
+					<button
+						key={name}
+						onClick={ () => _changeFloor(name) }
+						className={`${ name === config.currentFloor ? 'selected' : ''}`}
+					>{name}</button>
+				)}
+			</div>
+
 			<div>
 				<input type="text" placeholder="message"/>
 				<button>send</button>
@@ -169,6 +180,7 @@ const UICamera = ({
 const mapStateToProps = ({levels, config, players}) => ({
 	players,
 	config,
+	levelNames: Object.keys(levels),
 	currentLevel: levels[config.currentFloor].tiles
 })
 
@@ -183,6 +195,15 @@ const mapDispatchToProps = dispatch => ({
 			data: { id },
 		})
 		await dispatch(setConfigKey({key: 'selectedPlayer', data: id}))
+	},
+	_changeFloor: async floor => {
+		await axios({
+			headers: { "Content-Type" : "application/json" },
+			baseURL: "http://localhost:5000/api/settings_set_floor",
+			method: "post",
+			data: { floor },
+		})
+		await dispatch(setConfigKey({key: 'currentFloor', data: floor}))
 	}
 })
 

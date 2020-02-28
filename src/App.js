@@ -7,7 +7,7 @@ import Floor from './architecture/Floor'
 import UICamera from './ui/UICamera'
 import DragScroll from './functions/DragScroll'
 
-const App  = ({init, levels, finish}) => {
+const App  = ({init, finish}) => {
 	useEffect( _ =>{
 		init()
 	},[])
@@ -17,7 +17,8 @@ const App  = ({init, levels, finish}) => {
 			{
 				finish === 'done' &&
 					<DragScroll>
-						<Floor level={levels.level1} />
+						<Floor level={1}/>
+						<Floor level={2}/>
 						<UICamera/>
 					</DragScroll>
 			}
@@ -25,7 +26,14 @@ const App  = ({init, levels, finish}) => {
 	)
 }
 
-const mapStateToProps = ({levels, finish}) => ({levels, finish})
+const mapStateToProps = ({config, levels, finish}) => {
+	const {currentFloor} = config
+	return{
+		finish
+	}
+}
+
+
 
 const  mapDispatchToProps = dispatch => ({
 	init: _ => dispatch(handleLevelsData())
