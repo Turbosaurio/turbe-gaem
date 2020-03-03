@@ -26,17 +26,10 @@ const App  = ({init, finish}) => {
 	)
 }
 
-const mapStateToProps = ({config, levels, finish}) => {
-	const {currentFloor} = config
-	return{
-		finish
-	}
-}
-
-
+const mapStateToProps = ({finish}) => ({ finish })
 
 const  mapDispatchToProps = dispatch => ({
-	init: _ => dispatch(handleLevelsData())
+	init: () => dispatch(handleLevelsData())
 })
 
 export default connect(mapStateToProps,mapDispatchToProps)(App)

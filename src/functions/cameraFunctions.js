@@ -42,8 +42,8 @@ export const rotateLevel = (arr, cam) =>{
 }
 
 export const rotatePlayer = (y, x, cam, t) =>{
-	const ty = parseInt( t - y)
-	const tx = parseInt( t - x)
+	const ty = parseInt( t - y, 2 )
+	const tx = parseInt( t - x, 2 )
 	switch(cam){
 		case "rot": return {y: x, x: ty}
 		case "inv": return {y: ty, x: tx}

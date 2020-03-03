@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { createUseStyles } from 'react-jss'
 
-import {setConfigKey} from '../redux/actions/config'
+// import {setConfigKey} from '../redux/actions/config'
 import {rotatePlayer} from '../functions/cameraFunctions'
 
 

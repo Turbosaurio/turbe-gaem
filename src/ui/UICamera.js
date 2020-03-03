@@ -37,8 +37,6 @@ const UICamera = ({
 	))
 
 	const moveSelected = direction =>{
-		const {y, x} = playerPos
-		
 		switch(cameraPos){
 			case 'rot':
 				switch(direction){
@@ -121,10 +119,6 @@ const UICamera = ({
 
 	const handleCameraChange = (dir, cam) =>{ 
 		_setCamera(handleRotation(dir, cam))
-	}
-
-	const style = {
-		backgroundImage: "url('ui-images/rotate-arrow.svg')"
 	}
 
 	return(

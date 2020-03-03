@@ -23,8 +23,8 @@ const tileButtonStyles = createUseStyles({
 })
 
 export const rotateCoords = ( y, x, cam ) =>{
-	const ty = parseInt( 19 - y)
-	const tx = parseInt( 19 - x)
+	const ty = parseInt( 19 - y, 2)
+	const tx = parseInt( 19 - x, 2)
 	switch(cam){
 
 		case "rot": return {y: tx, x: y}
