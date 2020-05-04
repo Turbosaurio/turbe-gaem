@@ -11,10 +11,24 @@ const router = express.Router()
 const PORT = process.env.REACT_APP_API_PORT
 const MONGO_URL = process.env.REACT_APP_MONGO_URL
 const MONGO_DEFAULT_SETTING = process.env.DEFAULT_SETTINGS
+const MONGO_GAME_STATE = process.env.MONGO_DEFAULT_GAME_STATE
 
 const jsonParser = bodyParser.json()
-
 let db
+
+router.get('/gameState', (req, res) => {
+	db.collection('gameState').findOne({
+		_id:ObjectId(MONGO_GAME_STATE)
+	}, (error, data) => {
+		if(error){
+			console.log(error)
+			return req.json({ success: true, error, data: {} })
+		} else {
+			return res.json({ success: true, data })
+		}
+	})
+})
+
 
 router.get('/settings', (req, res) => {
 	db.collection('settings').findOne({
@@ -149,9 +163,27 @@ router.post('/levels_update', jsonParser, (req, res) => {
 		)
 })
 
+
+router.post('/gameState/setSection', jsonParser, (req, res) => {
+	const { currentSection } = req.query
+	db.collection('gameState')
+		.updateOne(
+			{ _id: ObjectId(MONGO_GAME_STATE) },
+			{ $set: { currentSection }},
+			{ upsert: false },
+			err => {
+				if(err){
+					return console.log(err)
+				} else {
+					return res.json({ status: `section changed to ${currentSection}` })
+				}
+			}
+		)
+})
+
 const client  = new MongoClient(MONGO_URL, { useNewUrlParser: true, useUnifiedTopology: true })
 
-client.connect ( (err, client) => {	
+client.connect ( (err, client) => {	 
 	if(err) return console.log(err)
 
 	db = client.db('gaem')

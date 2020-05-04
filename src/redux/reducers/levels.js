@@ -7,7 +7,7 @@ export default function levels ( state = {}, action){
 		case GET_LEVELS:
 			return{
 				...state,
-				...action.val
+				...action.val.levels
 			}
 		default: return state
 	}

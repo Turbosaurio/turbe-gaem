@@ -1,35 +1,19 @@
-import React, {useEffect} from 'react'
+import React from 'react'
 import './App.css'
-import {connect} from 'react-redux'
-import {handleLevelsData} from './redux/actions/shared'
+import { Route, Switch } from 'react-router-dom'
+import HostInterface from './interface/HostInterface'
+import PlayerInterface from './interface/PlayerInterface'
+import GameSections from './interface/GameSections'
 
-import Floor from './architecture/Floor'
-import UICamera from './ui/UICamera'
-import DragScroll from './functions/DragScroll'
 
-const App  = ({init, finish}) => {
-	useEffect( _ =>{
-		init()
-	},[])
-
-	return (
-		<div>
-			{
-				finish === 'done' &&
-					<DragScroll>
-						<Floor level={1}/>
-						<Floor level={2}/>
-						<UICamera/>
-					</DragScroll>
-			}
-		</div>
+const App = () => {
+	return(
+		<Switch>
+			<Route exact path="/" component={GameSections} />
+			<Route path="/hostUI" component={HostInterface}/>
+			<Route path="/playerUI" component={PlayerInterface}/>
+		</Switch>
 	)
 }
 
-const mapStateToProps = ({finish}) => ({ finish })
-
-const  mapDispatchToProps = dispatch => ({
-	init: () => dispatch(handleLevelsData())
-})
-
-export default connect(mapStateToProps,mapDispatchToProps)(App)
+export default App

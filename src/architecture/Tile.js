@@ -11,7 +11,7 @@ const tileTexture = ( num, height, width ) =>{
 	const left = num % columns
 	const page = Math.floor( num / perPage)
 
-	const backgroundImage = `url(textures/tiles${page}.png`
+	const backgroundImage = `url(../textures/tiles${page}.png`
 	const backgroundPosition = `-${left * width}px -${top * height}px`
 
 	return {

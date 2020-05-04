@@ -75,7 +75,7 @@ const Player = ({name, position, face, cameraPos}) => {
 
 	const playerPosition = {
 		...getFace(cameraFace(cameraPos, face)),
-		backgroundImage : `url(player/${name}.png)`,
+		backgroundImage : `url(../player/${name}.png)`,
 		top: `${(newPos.y + newPos.x) * 35}px`,
 		left: `${(newPos.x - newPos.y) * 75}px`
 	}

@@ -17,7 +17,7 @@ const floorStyles = createUseStyles({
 })
 
 
-const Floor = ({config, players, level, levels}) =>{
+const Floor = ({config, players, level, levels, gameState}) =>{
 
 	let tilesGroup = [], tilesButtonsGroup = []
 
@@ -33,7 +33,6 @@ const Floor = ({config, players, level, levels}) =>{
 		for(let k = 0; k < max; k++){
 			const texture = rotateTiles[i][k]
 			const tilesProps = {
-				// key: counter,
 				y: i,
 				x: k,
 				top: k + i,
@@ -42,8 +41,6 @@ const Floor = ({config, players, level, levels}) =>{
 			}
 			tilesGroup.push(<Tile key={`tile${k}_${i}`} {...tilesProps}/>)
 			tilesButtonsGroup.push(<TileButton key={`tileButton${k}_${i}`} {...tilesProps}/>)
-			// if(k !== x || i !== y){
-			// }	
 		}
 	}
 
@@ -56,14 +53,17 @@ const Floor = ({config, players, level, levels}) =>{
 				: null
 			}
 			{floor === 1 && currentFloor === `level${level}`
-				? players.map( player => 
+				? players.map( player => {
+					return(
+						<Player
+							key={player.name}
+							name={player.name}
+							position={player.position}
+							face={player.face}
+						/>
+					)
+				}
 
-					<Player
-						key={player.name}
-						name={player.name}
-						position={player.position}
-						face={player.face}
-					/>
 				)
 				: null
 			}
@@ -71,8 +71,8 @@ const Floor = ({config, players, level, levels}) =>{
 	)
 }
 
-const mapStateToProps = ({config, players, levels}) => {
-	return {config, players, levels}
+const mapStateToProps = ({config, players, levels, gameState}) => {
+	return {config, players, levels, gameState}
 }
 
 export default connect(mapStateToProps)(Floor)
