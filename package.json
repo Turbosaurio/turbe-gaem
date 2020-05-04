@@ -1,16 +1,37 @@
 {
+  "homepage": "http://turbosaurio.github.io/turbe-gaem",
   "name": "keke",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "react": "^16.2.0",
+    "axios": "^0.19.2",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "gh-pages": "^2.0.1",
+    "mongodb": "^3.5.2",
+    "morgan": "^1.9.1",
+    "react": "^16.12.0",
     "react-dom": "^16.2.0",
-    "react-scripts": "1.1.1"
+    "react-indiana-drag-scroll": "^1.5.4",
+    "react-jss": "^10.0.3",
+    "react-redux": "^6.0.0",
+    "react-router-dom": "^5.1.2",
+    "react-scripts": "1.1.1",
+    "redux": "^4.0.1",
+    "redux-thunk": "^2.3.0"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
+    "server": "node node_modules/nodemon/bin/nodemon.js backend/server.js"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.2"
   }
 }

@@ -1,12 +1,108 @@
-body{
-  background-color: rgb(50,50,50);
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #323232;
+  font-family: Helvetica, Verdana, sans-serif;
 }
 
-.floor{
+.ui-buttons-container-holder {
+  border: 5px solid black;
+  background-color: black;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+}
+.ui-buttons-container-holder div {
+  width: 300px;
+  font-size: 0.75rem;
+  background-color: white;
+  padding: 3px;
+}
+.ui-buttons-container-holder div span {
+  color: red;
+}
+.ui-buttons-container-holder div + div {
+  margin-top: 2px;
+}
+.ui-buttons-container-holder button + button {
+  margin-left: 5px;
+}
+.ui-buttons-container-holder button {
+  border: none;
+}
+.ui-buttons-container-holder button.selected {
+  background-color: red;
+  color: white;
+}
+.ui-buttons-container-holder button:hover {
+  background-color: rgba(75, 75, 200, 0.3);
+}
+
+#button_test {
+  position: fixed;
+  top: 0;
+  width: 100px;
+  left: calc(50% - 50px);
+}
+
+.ui-debugger {
+  position: fixed;
+  width: auto;
+  bottom: 0;
+  right: 0;
+  padding: 10px;
+  background-color: white;
+  color: black;
+}
+
+.ui-player-panel {
+  z-index: 99999;
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: 0;
+}
+.ui-player-panel .player-actions-menu {
   position: relative;
 }
-.floor > .tile{
-  position: absolute;
-  width: 150px;
-  height: 300px;
+.ui-player-panel .action-button {
+  border: none;
+  display: block;
+  width: 40px;
+  height: 40px;
+  color: transparent;
+  overflow-x: hidden;
+  border-radius: 50%;
 }
+.ui-player-panel .action-button.open {
+  position: relative;
+}
+.ui-player-panel .action-button.open:before, .ui-player-panel .action-button.open:after {
+  content: "";
+  position: absolute;
+}
+.squares-test {
+  background-color: red;
+}
+
+.square {
+  position: absolute;
+  width: 160px;
+  height: 160px;
+  padding: 15px;
+  box-sizing: border-box;
+  font-size: 1rem;
+  color: white;
+  border: 1px solid white;
+}
+.square.current {
+  background-color: green;
+}
+.square.open {
+  background-color: purple;
+}
+.square.closed {
+  background-color: black;
+}
+
+/*# sourceMappingURL=App.css.map */

@@ -1,0 +1,108 @@
+body{
+	margin: 0;
+	padding: 0;
+	background-color: rgb(50,50,50);
+	font-family: Helvetica, Verdana, sans-serif;
+}
+
+
+.ui-buttons-container-holder{
+	border: 5px solid black;
+	background-color: black;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+
+	div{
+		width: 300px;
+		font-size: .75rem;
+		background-color: white;
+		padding: 3px;
+		span{ color: red; }
+		& + div{
+			margin-top: 2px;
+		}
+	}
+	button + button{
+		margin-left: 5px;
+	}
+	button{
+		border: none;
+		&.selected{
+			background-color: red;
+			color: white;
+		}
+		&:hover{
+			background-color: rgba(75,75,200, .3);
+		}
+	}
+
+}
+
+
+#button_test{
+	position: fixed;
+	top: 0;
+	width: 100px;
+	left: calc(50% - 50px);
+}
+
+// .player{
+// 	position: absolute;
+// 	width: 150px;
+// 	height: 300px;
+// 	overflow: hidden;
+// 	color: red;
+// 	font-size: 1rem;
+// 	padding-top: 25px;
+// 	box-sizing: border-box;
+	
+// 	background-size: auto;
+// 	background-repeat: no-repeat;
+// }
+
+
+.ui-debugger{
+	position: fixed;
+	width: auto;
+	bottom: 0;
+	right: 0;
+	padding: 10px;
+	background-color: $white-cuau;
+	color: $black-mamba;
+}
+
+.ui-player-panel{
+
+	$button-dimension: 40px;
+
+	z-index: 99999;
+	position: absolute;
+	width: 100%;
+	top: 0;
+	left: 0;
+
+	.player-actions-menu{
+		position: relative;
+		.action-button{
+			// position: absolute;
+
+		}
+	}
+	.action-button{
+		@include cleanse-button($button-dimension, $round: true);
+
+		&.open{
+			position: relative;
+			&:before, &:after{
+				content: '';
+				position: absolute;
+			}
+		}
+
+		&.close{
+
+		}
+
+	}
+}
