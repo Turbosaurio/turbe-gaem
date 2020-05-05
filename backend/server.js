@@ -16,6 +16,8 @@ const MONGO_GAME_STATE = process.env.MONGO_DEFAULT_GAME_STATE
 const jsonParser = bodyParser.json()
 let db
 
+router.get('/', (req, res) => res.send('hello there'))
+
 router.get('/gameState', (req, res) => {
 	db.collection('gameState').findOne({
 		_id:ObjectId(MONGO_GAME_STATE)
