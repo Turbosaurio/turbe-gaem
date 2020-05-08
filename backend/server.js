@@ -4,6 +4,7 @@ const { MongoClient, ObjectId } = require('mongodb')
 var cors = require('cors')
 const express = require('express')
 const bodyParser = require('body-parser')
+const path = require('path')
 
 const app = express()
 const router = express.Router()
@@ -15,8 +16,6 @@ const MONGO_GAME_STATE = process.env.MONGO_DEFAULT_GAME_STATE
 
 const jsonParser = bodyParser.json()
 let db
-
-router.get('/', (req, res) => res.send('hello there'))
 
 router.get('/gameState', (req, res) => {
 	db.collection('gameState').findOne({
@@ -191,7 +190,17 @@ client.connect ( (err, client) => {
 	db = client.db('gaem')
 
 	app.use(cors())
+
 	app.use('/api', router)
+
+	app.use(express.static('build'))
+
+	app.get('/', (req, res) => {
+		const peth = path.resolve(__dirname, '../build', 'index.html')
+		console.log(peth)
+	  res.sendFile(peth)
+	})
+
 	app.listen(PORT, () =>
 		console.log(`listening to port ${PORT}`))
 })
