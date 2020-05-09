@@ -193,12 +193,11 @@ client.connect ( (err, client) => {
 
 	app.use('/api', router)
 
-	app.use(express.static('build'))
+	// app.use(express.static('build'))
+	// app.use('/build', express.static(path.join(__dirname, 'build')))
 
 	app.get('/', (req, res) => {
-		const peth = path.resolve(__dirname, '../build', 'index.html')
-		console.log(peth)
-	  res.sendFile(peth)
+		res.sendFile(path.resolve(__dirname, '../build', 'index.html'))
 	})
 
 	app.listen(PORT, () =>
