@@ -9,7 +9,7 @@ const path = require('path')
 const app = express()
 const router = express.Router()
 
-const PORT = process.env.PORT || process.env.REACT_APP_API_PORT
+const PORT = process.env.REACT_APP_API_PORT
 const MONGO_URL = process.env.REACT_APP_MONGO_URL
 const MONGO_DEFAULT_SETTING = process.env.DEFAULT_SETTINGS
 const MONGO_GAME_STATE = process.env.MONGO_DEFAULT_GAME_STATE
