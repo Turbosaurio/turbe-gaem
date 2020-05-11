@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import mapJSS from '../styles/jss/mapJSS'
-import GameState from './GameState'
+import GameStateSync from './GameStateSync'
 
 const styles = {
 	game_state:{
@@ -92,7 +92,7 @@ const GameSections = ({gameState}) =>{
 	const { currentSection } = gameState
 	return(
 		<div className={jss(['game_state'])}>
-				<GameState />
+				<GameStateSync />
 				{ sections[currentSection] }
 		</div>		
 	)
