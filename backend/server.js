@@ -77,10 +77,10 @@ router.get('/players', (req, res) => {
 })
 
 router.get('/player', (req,res) => {
-	const { player_name } = req.query
+	const { player_id } = req.query
 	db.collection('players')
 		.findOne(
-			{ name : player_name },
+			{ _id : ObjectId(player_id)},
 			(err, data) => {
 				if(err){
 					return req.json({succes: false, err})
@@ -103,7 +103,7 @@ router.post('/player_position', jsonParser,  (req, res) => {
 				if(err){
 					return console.log(err)
 				} else {
-					return res.json({ results: req.body })
+					return res.json({ results: req.body, success: true })
 				}
 			}
 		)
@@ -182,6 +182,22 @@ router.post('/gameState/setSection', jsonParser, (req, res) => {
 		)
 })
 
+router.post('/gameState/pushPlayer', jsonParser, (req, res) => {
+	const newPlayerId = '111'
+	db.collection('gameState')
+		.updateOne(
+			{ _id: ObjectId(MONGO_GAME_STATE) },
+			{ $push: { onlinePlayers: newPlayerId}},
+			err => {
+				if(err){
+					return console.log(err)
+				} else {
+					return res.json({ status: `player ${newPlayerId} is online`, success: true})
+				}
+			}
+		)
+})
+
 const client  = new MongoClient(MONGO_URL, { useNewUrlParser: true, useUnifiedTopology: true })
 
 client.connect ( (err, client) => {	 
@@ -196,8 +212,9 @@ client.connect ( (err, client) => {
 	// app.use(express.static('build'))
 	// app.use('/build', express.static(path.join(__dirname, 'build')))
 
-	app.get('/', (req, res) => {
+	app.get('/build', (req, res) => {
 		res.sendFile(path.resolve(__dirname, '../build', 'index.html'))
+		// res.send(path.resolve(__dirname, '../build/static/js/main.bb961f4a.js'))
 	})
 
 	app.listen(PORT, () =>
