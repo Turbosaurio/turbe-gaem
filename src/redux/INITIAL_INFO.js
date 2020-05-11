@@ -1,9 +1,10 @@
 // TODO DEVELOPMENT & PRODUCTION URLS
-const PORT = process.env.REACT_APP_API_PORT
-const settings = 'http://localhost:'+PORT+'/api/settings'
-const players = 'http://localhost:'+PORT+'/api/players'
-const maps = 'http://localhost:'+PORT+'/api/maps'
-const gameState = 'http://localhost:'+PORT+'/api/gameState'
+import { PORT } from '../constants'
+
+const settings = PORT+'/api/settings'
+const players = PORT+'/api/players'
+const maps = PORT+'/api/maps'
+const gameState = PORT+'/api/gameState'
 
 function connectDB(depratment){
 	return fetch(depratment)
