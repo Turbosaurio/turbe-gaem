@@ -2,8 +2,8 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { createUseStyles } from 'react-jss'
 
-// import {setConfigKey} from '../redux/actions/config'
-import {rotatePlayer} from '../functions/cameraFunctions'
+import PlayerSync from './PlayerSync'
+import { rotatePlayer } from '../functions/cameraFunctions'
 
 
 function cameraFace(cam, face){
@@ -63,7 +63,7 @@ const playerStyle = createUseStyles ({
 	}
 })
 
-const Player = ({name, position, face, cameraPos}) => {	
+const Player = ({name, position, face, cameraPos, _id}) => {	
 	const { y, x } = position
 
 	const newPos = rotatePlayer(y,x,cameraPos, 19)
@@ -81,11 +81,10 @@ const Player = ({name, position, face, cameraPos}) => {
 	}
 
 	return(
-		<div
-			className={ jss.player }
-			style={ playerPosition }
-		>
-		</div>
+			<div
+				className={ jss.player }
+				style={ playerPosition }
+			/>
 	)
 }
 

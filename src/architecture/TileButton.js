@@ -4,6 +4,7 @@ import {createUseStyles} from 'react-jss'
 
 import axios from 'axios'
 
+import { PORT } from '../constants'
 import { movePlayer } from '../redux/actions/players'
 
 const tileButtonStyles = createUseStyles({
@@ -67,7 +68,7 @@ const mapDispatchToProps = dispatch => {
 			}
 			await axios({
 				headers: { "Content-Type" : "application/json" },
-				baseURL: "http://localhost:5000/api/player_position",
+				baseURL: `${PORT}/api/player_position`,
 				method: "post",
 				data: body,
 			})
