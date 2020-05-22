@@ -1,7 +1,8 @@
 import {
 	GET_GAME_STATE,
 	SET_CURRENT_SECTION,
-	NEXT_QUESTION
+	NEXT_QUESTION,
+	ADD_QUESTION
 } from '../actions/gameState'
 
 export default function gameState ( state = {}, action){
@@ -20,6 +21,14 @@ export default function gameState ( state = {}, action){
 			return{
 				...state,
 				currentQuestion: state.currentQuestion + 1
+			}
+		case ADD_QUESTION:
+			return{
+				...state,
+				questions: [
+					...state.questions,
+					action.val
+				]
 			}
 		default : return state
 	}

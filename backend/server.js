@@ -201,6 +201,23 @@ router.post('/gameState/setSection', jsonParser, (req, res) => {
 		)
 })
 
+router.post('/gameState/createQuestion', jsonParser, (req, res) => {
+	db.collection('gameState')
+		.updateOne(
+			{ _id: ObjectId(MONGO_GAME_STATE) },
+			{ $push: { questions: req.body }},
+			{ upsert: false },
+			err => {
+				if(err){
+					return res.json({ success: false })
+				} else {
+					return res.json({ success: true })
+				}
+			}
+		)
+
+})
+
 router.post('/gameState/setQuestion', jsonParser, (req, res) => {
 	const { currentQuestion } = req.body
 	db.collection('gameState')
@@ -235,7 +252,10 @@ router.post('/gameState/pushPlayer', jsonParser, (req, res) => {
 		)
 })
 
-const client  = new MongoClient(MONGO_URL, { useNewUrlParser: true, useUnifiedTopology: true })
+const client  = new MongoClient(
+	MONGO_URL, 
+	{ useNewUrlParser: true, useUnifiedTopology: true }
+)
 
 const onChange = change => {
 	console.log(change)
