@@ -1,4 +1,4 @@
-import { useState, useContext } from "react"
+import { useState } from "react"
 
 export default initialValues => {
   const [inputs, setInputs] = useState(initialValues)

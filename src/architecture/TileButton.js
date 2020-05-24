@@ -1,9 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {createUseStyles} from 'react-jss'
-
-import axios from 'axios'
-
 import { PORT } from '../constants'
 import { movePlayer } from '../redux/actions/players'
 
@@ -37,15 +34,19 @@ export const rotateCoords = ( y, x, cam ) =>{
 }
 
 
-const TileButton = ({top, left, y, x, cameraPos, _movePlayer, level, player}) => {
+const TileButton = ({top, left, y, x, cameraPos, _handeMovePlayer, level, player}) => {
 	const jss = tileButtonStyles()
+	const newPosition = rotateCoords(y,x, cameraPos)
 	return(
 		<button
 			style={{top: top * 35 + 219, left: left * 75 + 26}}
 			title={`${y}_${x}`}
 			className={jss.tile_button}
-			onClick={ _ => {
-				_movePlayer(player, rotateCoords(y, x, cameraPos))
+			onClick={ _ => { 
+				_handeMovePlayer({
+					id: player,
+					...rotateCoords(y, x, cameraPos)
+				})
 			}}
 		/>
 	)
@@ -59,21 +60,21 @@ const mapStateTopProps = ({config, levels}) => {
 }
 
 const mapDispatchToProps = dispatch => {
+	const postOptions = {
+		method: 'POST',
+		headers:{
+			'Accept': 'application/json',
+			'Content-Type': 'application/json'
+		}
+	}
 	return{
-		_movePlayer : async (player, target) => {
-			const body = {
-				"id": player,
-				"y": target.y,
-				"x": target.x,
-			}
-			await axios({
-				headers: { "Content-Type" : "application/json" },
-				baseURL: `${PORT}/api/player_position`,
-				method: "post",
-				data: body,
-			})
-			await dispatch(movePlayer(body))
-				
+		_handeMovePlayer: body => {
+			fetch(`${PORT}/api/players/set_player_position`, { ...postOptions, body: JSON.stringify(body)})
+				.then( data => data.json())
+				.then( res => {
+					if (res.success) dispatch(movePlayer(res.results))
+				})
+				.catch( err => console.log(err))
 		}
 	}
 }

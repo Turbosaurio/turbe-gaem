@@ -2,8 +2,10 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { createUseStyles } from 'react-jss'
 
-import PlayerSync from './PlayerSync'
+import { PORT } from '../constants'
+import SubscribeChannel from '../functions/SubscribeChannel'
 import { rotatePlayer } from '../functions/cameraFunctions'
+import { movePlayer } from '../redux/actions/players'
 
 
 function cameraFace(cam, face){
@@ -63,7 +65,7 @@ const playerStyle = createUseStyles ({
 	}
 })
 
-const Player = ({name, position, face, cameraPos, _id}) => {	
+const Player = ({ name, position, face, cameraPos, _id, updatePlayerPosition }) => {	
 	const { y, x } = position
 
 	const newPos = rotatePlayer(y,x,cameraPos, 19)
@@ -84,10 +86,27 @@ const Player = ({name, position, face, cameraPos, _id}) => {
 			<div
 				className={ jss.player }
 				style={ playerPosition }
-			/>
+			>
+				<SubscribeChannel channel="players" method="updated" callback={ _ => updatePlayerPosition(_id) } />
+			</div>
 	)
 }
 
 const mapStateToProps =({config})=> ({ cameraPos: config.cameraPos})
 
-export default connect(mapStateToProps)(Player)
+const mapDispatchToProps = dispatch => ({
+	updatePlayerPosition: id => {
+		console.log('player moved')
+		fetch(`${PORT}/api/players/get_player?playerId=${id}`)
+			.then( data => data.json())
+			.then( res => {
+				if( res.success ) dispatch(movePlayer({
+						id, ...res.data.position
+				}))
+			})
+			.catch( err => console.log(err))
+
+	}
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Player)

@@ -2,9 +2,8 @@ import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 
 import { PORT } from '../constants'
+import SubscribeChannel from '../functions/SubscribeChannel'
 import { setCurrentSection } from '../redux/actions/gameState'
-
-import SuscribeChannel from '../functions/SuscribeChannel'
 import Questions from './Questions'
 
 
@@ -39,7 +38,7 @@ const GameSections = ({currentSection, updateGameState}) =>{
 
 	return (
 		<div>
-			<SuscribeChannel channel="gameState" method="updated" callback={ () => updateSection() }/>
+			<SubscribeChannel channel="gameState" method="updated" callback={ () => updateSection() }/>
 			{sections[currentSection]}
 		</div>
 	)

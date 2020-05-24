@@ -109,7 +109,7 @@ const mapDispatchToProps = dispatch => {
 				.catch( err => console.log(err))
 		},
 		nextQuestionIndex: currentQuestion => {
-			fetch(`${PORT}/api/gameState/setQuestion`, { ...postOptions, body: JSON.stringify({currentQuestion})})
+			fetch(`${PORT}/api/gameState/setQuestion`, { ...postOptions, body: JSON.stringify(currentQuestion)})
 				.then( data => data.json())
 				.then( res => {
 					if(res.success){
@@ -121,19 +121,19 @@ const mapDispatchToProps = dispatch => {
 		},
 		createQuestion: newQuestion => {
 			const { text, option_1, option_2, option_3, option_4 } = newQuestion
-			const kaka = {
-				id: '2',
+			const body = {
+				id: 'm',
 				text,
 				options: [option_1, option_2, option_3, option_4 ]
 			}
-			fetch(`${PORT}/api/gameState/createQuestion`, { ...postOptions, body: JSON.stringify(kaka)})
+			fetch(`${PORT}/api/gameState/createQuestion`, { ...postOptions, body: JSON.stringify(body)})
 				.then( data => data.json())
-					.then( res => {
-						if(res.success){
-							dispatch(addQuestion(kaka))
-						}
-					})
-					.catch( err => console.log(err))
+				.then( res => {
+					if(res.success){
+						dispatch(addQuestion(body))
+					}
+				})
+				.catch( err => console.log(err))
 		}
 	}
 }
