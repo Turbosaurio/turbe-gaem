@@ -53,7 +53,8 @@ client.connect ( (err, client) => {
 
 	db = client.db('gaem')
 	
-	const changeStream = db.watch()
+	const gameStateStream = db.collection('gameState').watch()
+	const playersStream = db.collection('players').watch()
 
 	app.use(cors())
 
@@ -62,7 +63,8 @@ client.connect ( (err, client) => {
 	app.use('/api/players', require('./routers/playersRouter'))
 	app.use('/api/settings', require('./routers/settingsRouter'))
 
-	changeStream.on('change', e => onChange(e))
+	gameStateStream.on('change', e => onChange(e))
+	playersStream.on('change', e => onChange(e))
 
 	app.get('/build', (req, res) => {
 		res.sendFile(path.resolve(__dirname, '../build', 'index.html'))

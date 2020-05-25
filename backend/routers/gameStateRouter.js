@@ -57,7 +57,7 @@ router.post('/createQuestion', jsonParser, (req, res) => {
 })
 
 router.post('/setQuestion', jsonParser, (req, res) => {
-	const { currentQuestion } = req.body
+	const { currentQuestion } = req.query
 	db.collection(collection)
 		.updateOne(
 			{ _id: ObjectId(MONGO_GAME_STATE)},

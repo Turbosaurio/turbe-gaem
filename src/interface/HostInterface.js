@@ -5,6 +5,7 @@ import useInputs from "./useInputs"
 import { addQuestion } from  '../redux/actions/gameState'
 import mapJSS from '../styles/jss/mapJSS'
 import { setCurrentSection, nextQuestion } from '../redux/actions/gameState'
+import { setQuestion } from '../redux/actions/gameState'
 
 const styles = {
 	container: {
@@ -19,10 +20,9 @@ const styles = {
 	}
 }
 
-const HostInterface = ({ gameState, updateSection, nextQuestionIndex, createQuestion }) => {
-	const { questions } = gameState
+const HostInterface = ({ gameState, updateSection, nextQuestionIndex, createQuestion, handleSetQuestion }) => {
+	const { questions, currentQuestion } = gameState
 	const buttons = ['home', 'questions', 'notFound']
-	const questionsList = [1,2,3,4,5,6,7,8,9]
 	const jss = mapJSS(styles)
   const names = { text: '', option_1: '', option_2: '', option_3: '', option_4: ''}
 	const { inputs, handleInputChange } = useInputs(names)
@@ -40,10 +40,16 @@ const HostInterface = ({ gameState, updateSection, nextQuestionIndex, createQues
 					}) }
 				</div>
 				<h3>questions</h3>
-				<div>
-					<button>prev</button>
-					<button onClick={() => nextQuestionIndex(questionsList.length)} >next</button>
-				</div>
+
+				<select
+					onChange={handleSetQuestion}
+					defaultValue={currentQuestion}
+				>
+					{
+						questions.map( ({id, text}, i) => <option key={id} value={i}>{`${i}: ${text}`}</option> )
+					}
+				</select>
+				
 
 				<form onSubmit={ e => {
 					e.preventDefault()
@@ -63,9 +69,7 @@ const HostInterface = ({ gameState, updateSection, nextQuestionIndex, createQues
 					}
 					<input type="submit" value="submit" />
 				</form>
-
 				<br/>
-
 				{
 					questions.map( ({id, text, options}) => (
 						<div key={id+text}>
@@ -131,6 +135,17 @@ const mapDispatchToProps = dispatch => {
 				.then( res => {
 					if(res.success){
 						dispatch(addQuestion(body))
+					}
+				})
+				.catch( err => console.log(err))
+		},
+		handleSetQuestion: e => {
+			const { value } = e.target
+			fetch(`${PORT}/api/gameState/setQuestion?currentQuestion=${value}`, postOptions)
+				.then( data =>  data.json())
+				.then( res => {
+					if(res.success){
+						dispatch(setQuestion(value))
 					}
 				})
 				.catch( err => console.log(err))
