@@ -17,7 +17,7 @@ const App = ({finish, init}) => {
 	if(finish === 'done'){
 		return(
 			<Switch>
-				<Route path="/sections" component={GameSections} />
+				<Route path="/" exact component={GameSections} />
 				<Route path="/hostUI" component={HostInterface}/>
 				<Route path="/playerUI" component={PlayerInterface}/>
 			</Switch>
