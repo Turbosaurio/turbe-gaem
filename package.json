@@ -32,7 +32,8 @@
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
-    "server": "node node_modules/nodemon/bin/nodemon.js backend/server.js"
+    "server": "node node_modules/nodemon/bin/nodemon.js backend/server.js",
+    "heroku-post-build": "npm run build"
   },
   "devDependencies": {
     "nodemon": "^2.0.2"
