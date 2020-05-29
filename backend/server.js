@@ -1,5 +1,6 @@
 require('dotenv').config({path: '.env.development'})
 
+const csp = require('content-security-policy')
 const { MongoClient,  } = require('mongodb')
 var cors = require('cors')
 const express = require('express')
@@ -17,6 +18,7 @@ const P_CLUSTER = process.env.REACT_APP_PUSHER_CLUSTER
 
 const app = express()
 const channels = ['gameState', 'players']
+const globalCSP = csp.getCSP(csp.STARTER_OPTIONS)
 
 const pusher = new Pusher({
 	appId: P_APP_ID,
@@ -57,6 +59,7 @@ client.connect ( (err, client) => {
 	const playersStream = db.collection('players').watch()
 
 	app.use(cors())
+	app.use(globalCSP)
 
 	app.use('/api/gameState', require('./routers/gameStateRouter'))
 	app.use('/api/maps', require('./routers/mapsRouter'))
