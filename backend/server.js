@@ -69,9 +69,14 @@ client.connect ( (err, client) => {
 	gameStateStream.on('change', e => onChange(e))
 	playersStream.on('change', e => onChange(e))
 
+	app.get('/', (req, res) => {
+		res.send('hola')
+	})
+
 	app.get('/build', (req, res) => {
 		res.sendFile(path.resolve(__dirname, '../build', 'index.html'))
 	})
+
 
 	app.listen(PORT, () =>
 		console.log(`listening to port ${PORT}`))
