@@ -11,18 +11,16 @@ module.exports = function(){
 				P_KEY: process.env.REACT_APP_PUSHER_KEY,
 				P_SECRET: process.env.REACT_APP_PUSHER_SECRET,
 				P_CLUSTER: process.env.REACT_APP_PUSHER_CLUSTER,
-				API_URL: 'http://localhost:' + process.env.REACT_APP_API_PORT
 			}
 		case 'production':
 			return{
 				ENV: 'production',
-				PORT: process.env.REACT_APP_API_PORT,
+				PORT: process.env.PORT || process.env.REACT_APP_API_PORT,
 				MONGO_URL: process.env.REACT_APP_MONGO_URL,
 				P_APP_ID: process.env.REACT_APP_PUSHER_APP_ID,
 				P_KEY: process.env.REACT_APP_PUSHER_KEY,
 				P_SECRET: process.env.REACT_APP_PUSHER_SECRET,
 				P_CLUSTER: process.env.REACT_APP_PUSHER_CLUSTER,
-				API_URL: ''
 			}
 		default: throw new Error('missing envs')
 	}
