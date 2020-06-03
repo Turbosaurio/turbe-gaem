@@ -3,7 +3,8 @@ import {
 	SET_CURRENT_SECTION,
 	NEXT_QUESTION,
 	ADD_QUESTION,
-	SET_QUESTION
+	SET_QUESTION,
+	DELETE_QUESTION
 } from '../actions/gameState'
 
 export default function gameState ( state = {}, action){
@@ -35,6 +36,12 @@ export default function gameState ( state = {}, action){
 			return{
 				...state,
 				currentQuestion: action.val				
+			}
+		case DELETE_QUESTION:
+			// const [ [action.val] : _, ...rest ] = state.questions
+			return{
+				...state,
+				questions: state.questions.filter( ({_id}) => _id !== action.val)
 			}
 		default : return state
 	}

@@ -8,7 +8,7 @@ const MONGO_GAME_STATE = process.env.MONGO_DEFAULT_GAME_STATE
 const collection = 'gameState'
 const jsonParser = bodyParser.json()
 
-router.get('/', (req, res) => {
+router.get('/', (req, res) => {	
 	db.collection(collection).findOne({
 		_id:ObjectId(MONGO_GAME_STATE)
 	}, (error, data) => {
@@ -26,7 +26,7 @@ router.post('/setSection', jsonParser, (req, res) => {
 	db.collection(collection)
 		.updateOne(
 			{ _id: ObjectId(MONGO_GAME_STATE) },
-			{ $set: { currentSection }},
+			{ $set: { currentSection: parseInt(currentSection) }},
 			{ upsert: false },
 			err => {
 				if(err){
@@ -41,16 +41,22 @@ router.post('/setSection', jsonParser, (req, res) => {
 })
 
 router.post('/createQuestion', jsonParser, (req, res) => {
+	const _id = new ObjectId()
+	const questions = {
+		...req.body,
+		_id
+	}
 	db.collection(collection)
 		.updateOne(
 			{ _id: ObjectId(MONGO_GAME_STATE) },
-			{ $push: { questions: req.body }},
+			{ $push: { questions }},
 			{ upsert: false },
 			err => {
 				if(err){
 					return res.json({ success: false })
 				} else {
-					return res.json({ success: true })
+					console.log(_id)
+					return res.json({ success: true, status: `created new question with id: ${_id}` })
 				}
 			}
 		)
@@ -85,6 +91,24 @@ router.post('/pushPlayer', jsonParser, (req, res) => {
 					return console.log(err)
 				} else {
 					return res.json({ status: `player ${newPlayerId} is online`, success: true})
+				}
+			}
+		)
+})
+
+router.post('/deleteQuestion', jsonParser, (req, res) => {
+	const { _id } = req.query
+	db.collection(collection)
+		.updateOne(
+			{ _id: ObjectId(MONGO_GAME_STATE) },
+			{ $pull: { questions: { _id: ObjectId(_id) }}},
+			{ multi: false },
+			err => {
+				if(err){
+					console.log(err)
+					return res.json({ success: false })
+				} else {
+					return res.json({ status: `deleted question ${_id}`, success: true})
 				}
 			}
 		)

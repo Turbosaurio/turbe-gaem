@@ -9,5 +9,5 @@ export default initialValues => {
       [event.target.name]: event.target.value
     }))
   }
-  return { inputs, handleInputChange }
+  return [ inputs, handleInputChange ]
 }

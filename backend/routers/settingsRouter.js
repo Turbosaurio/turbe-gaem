@@ -23,4 +23,22 @@ router.get('/', (req, res) => {
 	})
 })
 
+router.post('/setPlayer', jsonParser, (req, res) => {
+	const { id } = req.query
+	db.collection(collection)
+		.updateOne(
+			{ _id: ObjectId(MONGO_DEFAULT_SETTING) },
+			{ $set: { selectedPlayer: id } },
+			{ upsert: false },
+			err => {
+				if(err){
+					console.log(err)
+					return res.json({success: false})
+				} else {
+					return res.json({ success: true, status: `set selected player to ${id}`})
+				}
+			}
+	)
+})
+
 module.exports = router

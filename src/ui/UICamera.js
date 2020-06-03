@@ -1,7 +1,6 @@
 import React, {useCallback} from "react"
 import {connect} from 'react-redux'
-import axios from 'axios'
-
+import { PORT } from '../constants'
 import {setConfigKey} from '../redux/actions/config'
 import {useEventListener} from '../functions/useEventListener'
 
@@ -178,27 +177,31 @@ const mapStateToProps = ({levels, config, players}) => ({
 	currentLevel: levels[config.currentFloor].tiles
 })
 
-const mapDispatchToProps = dispatch => ({
-	_setCamera: data => dispatch(setConfigKey({key: 'cameraPos', data})),
-	_movePlayer: data => dispatch(setConfigKey({key: 'playerPos', data})),
-	_changePlayer: async id => {
-		await axios({
-			headers: { "Content-Type" : "application/json" },
-			baseURL: "http://localhost:5000/api/settings_set_player",
-			method: "post",
-			data: { id },
-		})
-		await dispatch(setConfigKey({key: 'selectedPlayer', data: id}))
-	},
-	_changeFloor: async floor => {
-		await axios({
-			headers: { "Content-Type" : "application/json" },
-			baseURL: "http://localhost:5000/api/settings_set_floor",
-			method: "post",
-			data: { floor },
-		})
-		await dispatch(setConfigKey({key: 'currentFloor', data: floor}))
+const mapDispatchToProps = dispatch => {
+	const postOptions = {
+		method: 'POST',
+		headers:{
+			'Accept': 'application/json',
+			'Content-Type': 'application/json'
+		},
 	}
-})
+	return {
+		_setCamera: data => dispatch(setConfigKey({key: 'cameraPos', data})),
+		_movePlayer: data => dispatch(setConfigKey({key: 'playerPos', data})),
+		_changePlayer: id => {
+			fetch(`${PORT}/api/settings/setPlayer?id=${id}`, postOptions)
+				.then( data => data.json())
+				.then( res => {
+					if(res.success){
+						dispatch(setConfigKey({key: 'selectedPlayer', data: id}))
+					}
+				})
+				.catch(err => console.log(err))
+		},
+		_changeFloor: floor => {
+			return null
+		}
+	}
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(UICamera)

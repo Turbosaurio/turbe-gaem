@@ -4,7 +4,7 @@ import { PORT } from '../constants'
 import useInputs from "./useInputs"
 import { addQuestion } from  '../redux/actions/gameState'
 import mapJSS from '../styles/jss/mapJSS'
-import { setCurrentSection, nextQuestion } from '../redux/actions/gameState'
+import { setCurrentSection, nextQuestion, deleteQuestion } from '../redux/actions/gameState'
 import { setQuestion } from '../redux/actions/gameState'
 
 const styles = {
@@ -20,18 +20,67 @@ const styles = {
 	}
 }
 
-const HostInterface = ({ gameState, updateSection, nextQuestionIndex, createQuestion, handleSetQuestion }) => {
+const HostInterface = ({
+
+		gameState,
+		updateSection,
+		nextQuestionIndex,
+		createQuestion,
+		handleSetQuestion,
+		deleteQuestion
+
+	}) => {
+
 	const { questions, currentQuestion } = gameState
 	const buttons = ['home', 'questions', 'notFound']
 	const jss = mapJSS(styles)
-  const names = { text: '', option_1: '', option_2: '', option_3: '', option_4: ''}
-	const { inputs, handleInputChange } = useInputs(names)
+
+  const names = { 
+  	text: '',
+  	type: '',
+  	option_a: '',
+  	option_b: '',
+  	option_c: '',
+  	option_d: '',
+  	answer: '',
+  }
+
+  const questionProps = {
+  	questionText: '',
+  	type: '',
+  	answer: ''
+  }
+
+  const questionOptions = {
+  	option_a: '',
+  	option_b: '',
+  	option_c: '',
+  	option_d: '',
+  	option_e: '',
+  	option_f: '',
+  	option_g: '',
+  	option_h: '',
+  }
+
+	const [ inputs, handleInputChange ] = useInputs(names)
+	const [ questionInputs, setQuestionInputs ] = useInputs(questionProps)
 
 	return(
 		<div className={jss(['container'])}>
 			<div className={jss(['container_inner'])}>
-				<h2>host interface</h2>
-				<h3>section</h3>
+				<h3>select section</h3>
+				<div>
+					{
+						Object.keys(questionProps).map( (q,i) =>
+							<input
+								key={i}
+								type="text"
+								value={questionInputs[q]}
+								placeholder={q}
+								onChange={setQuestionInputs}
+						/>)
+					}
+				</div>
 				<div>
 					{ buttons.map(b => {
 						return(
@@ -39,49 +88,49 @@ const HostInterface = ({ gameState, updateSection, nextQuestionIndex, createQues
 						)
 					}) }
 				</div>
-				<h3>questions</h3>
-
+				<h3>select question number</h3>
 				<select
 					onChange={handleSetQuestion}
 					defaultValue={currentQuestion}
 				>
 					{
-						questions.map( ({id, text}, i) => <option key={id} value={i}>{`${i}: ${text}`}</option> )
+						questions.map( ({_id, text}, i) => <option key={_id} value={i}>{`${i}: ${text}`}</option> )
 					}
 				</select>
 				
-
+				<h3>create question</h3>
 				<form onSubmit={ e => {
 					e.preventDefault()
 					createQuestion(inputs) 
 				}}>
 					{
 						Object.keys(names).map( (input, i) => 
-							<input
-								key={i+input}
-								type="text"
-								onChange={handleInputChange}
-								name={input}
-								placeholder={input}
-								value={inputs[input]}
-							/>
+							<div key={i+input}>
+								<label>{input}: </label>
+								<input
+									type="text"
+									onChange={handleInputChange}
+									name={input}
+									value={inputs[input]}
+								/>
+							</div>
 						)
 					}
-					<input type="submit" value="submit" />
+					<input type="submit" value="create question"/>
 				</form>
-				<br/>
-				{
-					questions.map( ({id, text, options}) => (
-						<div key={id+text}>
-							<div>{text}</div>
-							<ul>
-								{ options.map( o => <li key={o}>{JSON.stringify(o)}</li>)}
-							</ul>
-						</div>
-					))
-				}
-			
 
+				<h3>available questions</h3>
+				<ol>
+					{
+						questions.map( ({_id, text, options}, i) => (
+							<li key={_id + i}>
+								<div>{text}</div>
+								<ul>{JSON.stringify(options)}</ul>
+								<button title="delete question" value={_id} onClick={deleteQuestion}>x</button>
+							</li>
+						))
+					}
+				</ol>				
 			</div>
 		</div>
 	)
@@ -124,11 +173,10 @@ const mapDispatchToProps = dispatch => {
 
 		},
 		createQuestion: newQuestion => {
-			const { text, option_1, option_2, option_3, option_4 } = newQuestion
+			const { text, ...rest } = newQuestion
 			const body = {
-				id: 'm',
 				text,
-				options: [option_1, option_2, option_3, option_4 ]
+				options: Object.keys(rest).map( i => rest[i] )
 			}
 			fetch(`${PORT}/api/gameState/createQuestion`, { ...postOptions, body: JSON.stringify(body)})
 				.then( data => data.json())
@@ -146,6 +194,17 @@ const mapDispatchToProps = dispatch => {
 				.then( res => {
 					if(res.success){
 						dispatch(setQuestion(value))
+					}
+				})
+				.catch( err => console.log(err))
+		},
+		deleteQuestion: e => {
+			const { value } = e.target
+			fetch(`${PORT}/api/gameState/deleteQuestion?_id=${value}`, postOptions)
+				.then( data =>  data.json())
+				.then( res => {
+					if(res.success){
+						dispatch(deleteQuestion(value))
 					}
 				})
 				.catch( err => console.log(err))

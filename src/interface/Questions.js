@@ -1,29 +1,29 @@
 import React from 'react'
 import { connect } from 'react-redux'
-
 import { PORT } from '../constants'
 import { setQuestion } from '../redux/actions/gameState'
 import SubscribeChannel from '../functions/SubscribeChannel'
 
 import mapJSS from '../styles/jss/mapJSS'
 
-const Questions = ({ text, options, updateCurrentQuestion }) => {
+const Questions = ({ id, text, options, updateCurrentQuestion }) => {
 	const jss = mapJSS(styles)
 	return(
 		<div className={jss(['game_state'])}>
 			<div className={`${jss(['screen'])} questions`}>
 				<div className={jss(['screen_inner'])}>
 					<h2>questions</h2>
+					<div>{text}</div>
 					<div>
-						<h1>{text}</h1>
-						
-						<ul>
-							{ options && options.map( o => <li>{o}</li> )}
-						</ul>
+						{ options.map((option, i) =>
+							<button
+								key={`${id}_${i}`}
+							>{option}
+							</button>
+						)}
 					</div>
-
-					<SubscribeChannel channel="gameState" method="updated" callback={ _ => { updateCurrentQuestion() }}/>
 				</div>
+				<SubscribeChannel channel="gameState" method="updated" callback={ _ => { updateCurrentQuestion() }}/>
 			</div>
 		</div>		
 	)
@@ -36,7 +36,6 @@ const styles = {
 		top: 0,
 		left: 0,
 		width: '100%',
-		// height: '100vh',
 	},
 	screen:{
 		height: '100%',
@@ -74,8 +73,8 @@ const styles = {
 
 const mapStateToProps = ({ gameState }) => {
 	const { questions, currentQuestion } = gameState
-	const { text, options } = questions[currentQuestion]
-	return { text, options }
+	const { id, text, options } = questions[currentQuestion]
+	return { id, text, options }
 }
 const mapDispatchToProps = dispatch => ({
 	updateCurrentQuestion: _ =>{
