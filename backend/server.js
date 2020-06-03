@@ -72,5 +72,5 @@ client.connect ( (err, client) => {
 	app.use(express.static('build'))
 
 	app.listen(PORT, () =>
-		console.log(`listening to port ${__dirname}${PORT}`))
+		console.log(`path is ${__dirname}`,`listening to port ${PORT}`))
 })
