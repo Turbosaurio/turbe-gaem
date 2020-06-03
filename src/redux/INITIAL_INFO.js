@@ -1,6 +1,5 @@
 // TODO DEVELOPMENT & PRODUCTION URLS
 import { PORT } from '../constants'
-
 const settings = PORT+'/api/settings'
 const players = PORT+'/api/players'
 const maps = PORT+'/api/maps'

@@ -1,20 +1,21 @@
-require('dotenv').config({path: '.env.development'})
-
 const csp = require('content-security-policy')
-const { MongoClient,  } = require('mongodb')
+const { MongoClient } = require('mongodb')
 var cors = require('cors')
 const express = require('express')
 
 const path = require('path')
 const Pusher = require('pusher')
 
-const PORT = process.env.PORT || process.env.REACT_APP_API_PORT
-const MONGO_URL = process.env.REACT_APP_MONGO_URL
+const {
+	PORT,
+	MONGO_URL,
+	P_APP_ID,
+	P_KEY,
+	P_SECRET,
+	P_CLUSTER
+} = require('../config')()
 
-const P_APP_ID = process.env.REACT_APP_PUSHER_APP_ID 
-const P_KEY = process.env.REACT_APP_PUSHER_KEY 
-const P_SECRET = process.env.REACT_APP_PUSHER_SECRET 
-const P_CLUSTER = process.env.REACT_APP_PUSHER_CLUSTER 
+console.log('mongo: ', MONGO_URL)
 
 const app = express()
 const channels = ['gameState', 'players']

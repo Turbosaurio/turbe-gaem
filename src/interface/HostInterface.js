@@ -7,6 +7,8 @@ import mapJSS from '../styles/jss/mapJSS'
 import { setCurrentSection, nextQuestion, deleteQuestion } from '../redux/actions/gameState'
 import { setQuestion } from '../redux/actions/gameState'
 
+
+
 const styles = {
 	container: {
 		color: 'white',
