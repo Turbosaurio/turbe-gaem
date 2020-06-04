@@ -9,23 +9,19 @@ import mapJSS from '../styles/jss/mapJSS'
 const Questions = ({ id, text, options, updateCurrentQuestion }) => {
 	const jss = mapJSS(styles)
 	return(
-		<div className={jss(['game_state'])}>
-			<div className={`${jss(['screen'])} questions`}>
-				<div className={jss(['screen_inner'])}>
-					<h2>questions</h2>
-					<div>{text}</div>
-					<div>
-						{ options.map((option, i) =>
-							<button
-								key={`${id}_${i}`}
-							>{option}
-							</button>
-						)}
-					</div>
-				</div>
-				<SubscribeChannel channel="gameState" method="updated" callback={ _ => { updateCurrentQuestion() }}/>
+		<div>
+			<SubscribeChannel channel="gameState" method="updated" callback={ _ => { updateCurrentQuestion() }}/>
+			<h2>questions</h2>
+			<div>{text}</div>
+			<div>
+				{ options.map((option, i) =>
+					<button
+						key={`${id}_${i}`}
+					>{option}
+					</button>
+				)}
 			</div>
-		</div>		
+		</div>
 	)
 }
 
@@ -45,20 +41,6 @@ const styles = {
 			margin: 0,
 			textTransform: 'uppercase'
 		},
-
-		'&.home':{
-			backgroundColor: 'red',
-			color: 'white',
-		},
-
-		'&.questions':{
-			backgroundColor: 'green',
-			color: 'white',
-		},
-		'&.notfound':{
-			backgroundColor: 'pink',
-			color: 'black',
-		}
 	},
 	screen_inner:{
 		width: '100%',

@@ -55,7 +55,8 @@ router.post('/set_player_position', jsonParser,  (req, res) => {
 
 router.post('/createPlayer', jsonParser, (req, res) => {
 	const newId = new ObjectId()
-	const { id, player } = req.body
+	const { player } = req.body
+	// console.log(player)
 	db.collection('players')
 		.updateOne(
 			{ _id: newId },
@@ -66,7 +67,7 @@ router.post('/createPlayer', jsonParser, (req, res) => {
 					console.log(err)
 					return res.json({ results: 'failed to create player', success: false})
 				} else {
-					return res.json({ results: newId, success: true })
+					return res.json({ results: newId, success: true, id: newId })
 				}
 			}
 		)

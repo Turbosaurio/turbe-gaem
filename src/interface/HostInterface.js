@@ -8,20 +8,6 @@ import { setCurrentSection, nextQuestion, deleteQuestion } from '../redux/action
 import { setQuestion } from '../redux/actions/gameState'
 
 
-
-const styles = {
-	container: {
-		color: 'white',
-		backgroundColor: '#1a4f42',
-	},
-	container_inner:{
-		width: '100%',
-		maxWidth: 800,
-		margin: [0, 'auto'],
-		padding: '2rem',		
-	}
-}
-
 const HostInterface = ({
 
 		gameState,
@@ -36,8 +22,7 @@ const HostInterface = ({
 
 	const { questions, currentQuestion, onlinePlayers } = gameState
 	const buttons = ['home', 'questions', 'notFound']
-	const jss = mapJSS(styles)
-
+	
   const names = { 
   	text: '',
   	type: '',
@@ -69,70 +54,68 @@ const HostInterface = ({
 	
 
 	return(
-		<div className={jss(['container'])}>
-			<div className={jss(['container_inner'])}>
-				<h3>online players</h3>
-				<ul>
-					{
-						onlinePlayers.map( id => {
-							const { name } = players.find( ({_id}) => _id === id)
-							return <li key={id}>{ name }</li>
-						})
-					}
-				</ul>
+		<div>
+			<h3>online players</h3>
+			<ul>
+				{
+					onlinePlayers.map( id => {
+						const { name } = players.find( ({_id}) => _id === id)
+						return <li key={id}>{ name }</li>
+					})
+				}
+			</ul>
 
-				<h3>select section</h3>
-				<div>
-					{ buttons.map(b => {
-						return(
-							<button key={b} onClick={ () => updateSection(b) }>{b}</button>
-						)
-					}) }
-				</div>
-				<h3>select question number</h3>
-				<select
-					onChange={handleSetQuestion}
-					defaultValue={currentQuestion}
-				>
-					{
-						questions.map( ({_id, text}, i) => <option key={_id} value={i}>{`${i}: ${text}`}</option> )
-					}
-				</select>
-				
-				<h3>create question</h3>
-				<form onSubmit={ e => {
-					e.preventDefault()
-					createQuestion(inputs) 
-				}}>
-					{
-						Object.keys(names).map( (input, i) => 
-							<div key={i+input}>
-								<label>{input}: </label>
-								<input
-									type="text"
-									onChange={handleInputChange}
-									name={input}
-									value={inputs[input]}
-								/>
-							</div>
-						)
-					}
-					<input type="submit" value="create question"/>
-				</form>
-
-				<h3>available questions</h3>
-				<ol>
-					{
-						questions.map( ({_id, text, options}, i) => (
-							<li key={_id + i}>
-								<div>{text}</div>
-								<ul>{JSON.stringify(options)}</ul>
-								<button title="delete question" value={_id} onClick={deleteQuestion}>x</button>
-							</li>
-						))
-					}
-				</ol>				
+			<h3>select section</h3>
+			<div>
+				{ buttons.map(b => {
+					return(
+						<button key={b} onClick={ () => updateSection(b) }>{b}</button>
+					)
+				}) }
 			</div>
+			<h3>select question number</h3>
+			<select
+				onChange={handleSetQuestion}
+				defaultValue={currentQuestion}
+			>
+				{
+					questions.map( ({_id, text}, i) => <option key={_id} value={i}>{`${i}: ${text}`}</option> )
+				}
+			</select>
+			
+			<h3>create question</h3>
+			<form onSubmit={ e => {
+				e.preventDefault()
+				createQuestion(inputs) 
+			}}>
+				{
+					Object.keys(names).map( (input, i) => 
+						<div key={i+input}>
+							<label>{input}: </label>
+							<input
+								type="text"
+								onChange={handleInputChange}
+								name={input}
+								value={inputs[input]}
+							/>
+						</div>
+					)
+				}
+				<input type="submit" value="create question"/>
+			</form>
+
+			<h3>available questions</h3>
+			<ol>
+				{
+					questions.map( ({_id, text, options}, i) => (
+						<li key={_id + i}>
+							<div>{text}</div>
+							<ul>{JSON.stringify(options)}</ul>
+							<button title="delete question" value={_id} onClick={deleteQuestion}>x</button>
+						</li>
+					))
+				}
+			</ol>				
 		</div>
 	)
 }

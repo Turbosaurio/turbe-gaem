@@ -6,11 +6,26 @@ import { Route, Switch } from 'react-router-dom'
 
 import Navigation from './interface/Navigation'
 import HostInterface from './interface/HostInterface'
-import PlayerInterface from './interface/PlayerInterface'
+import CreatePlayer from './interface/CreatePlayer'
 import GameSections from './interface/GameSections'
 import { handleLevelsData } from './redux/actions/shared'
 
+import { Row } from './interface/common_elements'
+
+const components = {
+	home: _ => <Row theme="a"><GameSections /></Row>,
+	host: _ => <Row theme="b"><HostInterface /></Row>,
+	player: _ => <Row theme="c"><CreatePlayer /></Row>
+}
+
 const App = ({finish, init}) => {
+
+	const {
+		home,
+		host,
+		player
+	} = components
+
 	useEffect( _ =>{
 		init()
 	},[])
@@ -19,9 +34,9 @@ const App = ({finish, init}) => {
 			<div>
 				<Navigation />
 				<Switch>
-					<Route path="/" exact component={GameSections} />
-					<Route path="/hostUI" component={HostInterface}/>
-					<Route path="/playerUI" component={PlayerInterface}/>
+					<Route path="/" exact component={home} />
+					<Route path="/hostUI" component={host}/>
+					<Route path="/playerUI" component={player}/>
 				</Switch>
 			</div>
 		)

@@ -82,16 +82,17 @@ router.post('/setQuestion', jsonParser, (req, res) => {
 })
 
 router.post('/pushPlayer', jsonParser, (req, res) => {
-	const newPlayerId = '111'
+	const playerId = req.query
 	db.collection(collection)
 		.updateOne(
 			{ _id: ObjectId(MONGO_GAME_STATE) },
-			{ $push: { onlinePlayers: newPlayerId}},
+			{ $push: { onlinePlayers: playerId}},
 			err => {
 				if(err){
-					return console.log(err)
+					console.log(err)
+					return res.json({ success: false, err})
 				} else {
-					return res.json({ status: `player ${newPlayerId} is online`, success: true})
+					return res.json({ status: `player ${playerId} is online`, success: true})
 				}
 			}
 		)
