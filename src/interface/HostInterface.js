@@ -18,13 +18,14 @@ const styles = {
 		width: '100%',
 		maxWidth: 800,
 		margin: [0, 'auto'],
-		padding: ['2rem', 0],		
+		padding: '2rem',		
 	}
 }
 
 const HostInterface = ({
 
 		gameState,
+		players,
 		updateSection,
 		nextQuestionIndex,
 		createQuestion,
@@ -33,7 +34,7 @@ const HostInterface = ({
 
 	}) => {
 
-	const { questions, currentQuestion } = gameState
+	const { questions, currentQuestion, onlinePlayers } = gameState
 	const buttons = ['home', 'questions', 'notFound']
 	const jss = mapJSS(styles)
 
@@ -65,24 +66,22 @@ const HostInterface = ({
   }
 
 	const [ inputs, handleInputChange ] = useInputs(names)
-	const [ questionInputs, setQuestionInputs ] = useInputs(questionProps)
+	
 
 	return(
 		<div className={jss(['container'])}>
 			<div className={jss(['container_inner'])}>
-				<h3>select section</h3>
-				<div>
+				<h3>online players</h3>
+				<ul>
 					{
-						Object.keys(questionProps).map( (q,i) =>
-							<input
-								key={i}
-								type="text"
-								value={questionInputs[q]}
-								placeholder={q}
-								onChange={setQuestionInputs}
-						/>)
+						onlinePlayers.map( id => {
+							const { name } = players.find( ({_id}) => _id === id)
+							return <li key={id}>{ name }</li>
+						})
 					}
-				</div>
+				</ul>
+
+				<h3>select section</h3>
 				<div>
 					{ buttons.map(b => {
 						return(
@@ -138,7 +137,7 @@ const HostInterface = ({
 	)
 }
 
-const mapStateToProps = ({gameState}) => ({ gameState })
+const mapStateToProps = ({ gameState, players }) => ({ gameState, players })
 
 const mapDispatchToProps = dispatch => {
 	const postOptions = {

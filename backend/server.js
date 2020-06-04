@@ -36,12 +36,21 @@ const client  = new MongoClient(
 
 const onChange = change => {
 	console.log(change)
-	const { operationType } = change
+	const { operationType, fullDocument } = change
 	switch(operationType){
 		case 'update':
 			return pusher.trigger(
 				channels,
 				'updated',
+				{
+					success: true,
+					fullDocument
+				}
+			)
+		case 'insert':
+			return pusher.trigger(
+				channels,
+				'inserted',
 				{
 					success: true
 				}

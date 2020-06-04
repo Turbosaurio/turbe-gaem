@@ -53,4 +53,23 @@ router.post('/set_player_position', jsonParser,  (req, res) => {
 		)
 })
 
+router.post('/createPlayer', jsonParser, (req, res) => {
+	const newId = new ObjectId()
+	const { id, player } = req.body
+	db.collection('players')
+		.updateOne(
+			{ _id: newId },
+			{ $set: { ...player } },
+			{ upsert: true },
+			err => {
+				if(err){
+					console.log(err)
+					return res.json({ results: 'failed to create player', success: false})
+				} else {
+					return res.json({ results: newId, success: true })
+				}
+			}
+		)
+})
+
 module.exports = router 

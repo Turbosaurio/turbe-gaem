@@ -23,10 +23,11 @@ router.get('/', (req, res) => {
 
 router.post('/setSection', jsonParser, (req, res) => {
 	const { currentSection } = req.body
+	console.log(currentSection)
 	db.collection(collection)
 		.updateOne(
 			{ _id: ObjectId(MONGO_GAME_STATE) },
-			{ $set: { currentSection: parseInt(currentSection) }},
+			{ $set: { currentSection: currentSection }},
 			{ upsert: false },
 			err => {
 				if(err){

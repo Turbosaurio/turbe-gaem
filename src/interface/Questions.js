@@ -32,10 +32,6 @@ const Questions = ({ id, text, options, updateCurrentQuestion }) => {
 const styles = {
 	game_state:{
 		textAlign: 'center',
-		position: 'fixed',
-		top: 0,
-		left: 0,
-		width: '100%',
 	},
 	screen:{
 		height: '100%',
