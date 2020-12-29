@@ -7,7 +7,8 @@ const Navigation = () => {
 		<nav>
 			<button onClick={() => history.push('/') }>home</button>
 			<button onClick={() => history.push('/hostUI') }>host</button>
-			<button onClick={() => history.push('/playerUI') }>player</button>
+			<button onClick={() => history.push('/newPlayer') }>play</button>
+			<button onClick={() => history.push('/gottStrum') }>Risk</button>
 		</nav>
 	)
 }

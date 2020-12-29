@@ -41,6 +41,24 @@ router.post('/setSection', jsonParser, (req, res) => {
 		)
 })
 
+router.post('/updateDeck', jsonParser, (req, res) => {
+	const { newDeck } = req.body
+	db.collection(collection)
+		.updateOne(
+			{ _id: ObjectId(MONGO_GAME_STATE) },
+			{ $set: { deck: newDeck }},
+			{ upsert: false },
+			err => {
+				if(err){
+					console.log(err)
+					return res.json({ success: false })
+				} else {
+					return res.json({ message: 'updated deck', success: true})
+				}
+			}
+		)
+})
+
 router.post('/createQuestion', jsonParser, (req, res) => {
 	const _id = new ObjectId()
 	const questions = {
@@ -82,11 +100,11 @@ router.post('/setQuestion', jsonParser, (req, res) => {
 })
 
 router.post('/pushPlayer', jsonParser, (req, res) => {
-	const playerId = req.query
+	const { playerId } = req.query
 	db.collection(collection)
 		.updateOne(
 			{ _id: ObjectId(MONGO_GAME_STATE) },
-			{ $push: { onlinePlayers: playerId}},
+			{ $push: { onlinePlayers: playerId }},
 			err => {
 				if(err){
 					console.log(err)

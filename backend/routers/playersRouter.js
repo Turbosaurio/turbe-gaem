@@ -8,6 +8,27 @@ const MONGO_GAME_STATE = process.env.MONGO_DEFAULT_GAME_STATE
 const collection = 'players'
 const jsonParser = bodyParser.json()
 
+const playerValidator = {
+	collMod: 'players',
+	validator: { $jsonSchema: {
+		bsonType: 'object',
+		required: [ 'name', '_id'],
+		properties: {
+			_id:{ bsonType: 'ObjectId' },
+			name:{ bsonType: 'string' },
+			type:{ bsonType: 'string' },
+			message:{ bsonType: 'string' },
+			face:{ bsonType: 'integer' },
+			avatar:{ bsonType: 'string' },
+			position: {
+				bsonType: 'object',
+				description: 'player position must be an object'
+			}
+		}
+	}},
+	validationLevel: "moderate"
+}
+
 router.get('/', (req, res) => {
 	db.collection(collection)
 		.find({ type: 'player'})
@@ -73,4 +94,23 @@ router.post('/createPlayer', jsonParser, (req, res) => {
 		)
 })
 
-module.exports = router 
+router.post('/addPlayerAnswer', jsonParser, (req, res) => {
+	const { playerId, questionId, answer } = req.body
+	db.collection('players')
+		.updateOne(
+			{ _id: ObjectId(playerId) },
+			{ $push: { answers: { [questionId]: answer } }},
+			{ upsert: true },
+			err => {
+				if(err){
+					console.log(err)
+					return res.json( { results: 'failed to add player answer', success: false })
+
+				} else {
+					return res.json({ success: true })
+				}
+			}
+		)
+})
+
+module.exports = { playerRouter: router, playerValidator }

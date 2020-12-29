@@ -73,7 +73,7 @@ client.connect ( (err, client) => {
 
 	app.use('/api/gameState', require('./routers/gameStateRouter'))
 	app.use('/api/maps', require('./routers/mapsRouter'))
-	app.use('/api/players', require('./routers/playersRouter'))
+	app.use('/api/players', require('./routers/playersRouter').playerRouter)
 	app.use('/api/settings', require('./routers/settingsRouter'))
 
 	gameStateStream.on('change', e => onChange(e))
